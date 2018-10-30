@@ -15,6 +15,8 @@
 		8FBA3DCA2188E92E00153503 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8FBA3DC82188E92E00153503 /* LaunchScreen.storyboard */; };
 		8FBA3DD52188E92E00153503 /* AR_Note_TakingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA3DD42188E92E00153503 /* AR_Note_TakingTests.swift */; };
 		8FBA3DE02188E92E00153503 /* AR_Note_TakingUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA3DDF2188E92E00153503 /* AR_Note_TakingUITests.swift */; };
+		8FBA3DEE2188EBAF00153503 /* HelperFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA3DED2188EBAF00153503 /* HelperFunction.swift */; };
+		8FBA3DF02188EBBA00153503 /* RealScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBA3DEF2188EBBA00153503 /* RealScale.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		8FBA3DDB2188E92E00153503 /* AR Note TakingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AR Note TakingUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FBA3DDF2188E92E00153503 /* AR_Note_TakingUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AR_Note_TakingUITests.swift; sourceTree = "<group>"; };
 		8FBA3DE12188E92E00153503 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FBA3DED2188EBAF00153503 /* HelperFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunction.swift; sourceTree = "<group>"; };
+		8FBA3DEF2188EBBA00153503 /* RealScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealScale.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 				8FBA3DBD2188E92B00153503 /* AppDelegate.swift */,
 				8FBA3DBF2188E92B00153503 /* art.scnassets */,
 				8FBA3DC12188E92B00153503 /* ViewController.swift */,
+				8FBA3DEF2188EBBA00153503 /* RealScale.swift */,
+				8FBA3DED2188EBAF00153503 /* HelperFunction.swift */,
 				8FBA3DC32188E92B00153503 /* Main.storyboard */,
 				8FBA3DC62188E92E00153503 /* Assets.xcassets */,
 				8FBA3DC82188E92E00153503 /* LaunchScreen.storyboard */,
@@ -262,6 +268,8 @@
 			files = (
 				8FBA3DC22188E92B00153503 /* ViewController.swift in Sources */,
 				8FBA3DBE2188E92B00153503 /* AppDelegate.swift in Sources */,
+				8FBA3DF02188EBBA00153503 /* RealScale.swift in Sources */,
+				8FBA3DEE2188EBAF00153503 /* HelperFunction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
