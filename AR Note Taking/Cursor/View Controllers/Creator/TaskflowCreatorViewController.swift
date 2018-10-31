@@ -17,11 +17,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     
     var menuNode: SCNNode!
     var isMenuVisible = false
-    
-    enum CursorTarget {
-        case none
-        case showTaskflows
-    }
+
     
     var currentTarget: CursorTarget = .none
     
@@ -99,7 +95,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         toModify.m42 -= toModify.m32*distance
         toModify.m43 -= toModify.m33*distance
         
-        let menuButtonNodes = generateMenuButtonNodes()
+        let menuButtonNodes = generateMenu(withButtons: getMainMenuButtons())
         menuNode = SCNNode()
         
         menuNode.setWorldTransform(toModify)
@@ -162,9 +158,7 @@ extension TaskflowCreatorViewController {
     }
     
     @objc func didReceiveTapGesture(_ sender: UITapGestureRecognizer) {
-        if currentTarget == .showTaskflows {
-            showTaskflows()
-        }
+        handleCurrentTargetTapped()
         //        let location = sender.location(in: sceneView)
         //
         //        guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane]).first
@@ -175,83 +169,7 @@ extension TaskflowCreatorViewController {
         //        sceneView.session.add(anchor: anchor)
     }
     
-    func showTaskflows() {
-        print("Showing Taskflows")
-    }
     
-    func generateMenuButtonNodes() -> [SCNNode] {
-        let button11 = SCNPlane(width: 0.2, height: 0.2)
-        
-        
-        let layer = CALayer()
-        layer.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        layer.backgroundColor = UIColor.orange.cgColor
-        
-        var textLayer = CATextLayer()
-        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI_2)));
-        textLayer.frame = layer.bounds
-        textLayer.fontSize = layer.bounds.size.height
-        textLayer.string = "Test"
-        textLayer.alignmentMode = CATextLayerAlignmentMode.left
-        textLayer.foregroundColor = UIColor.green.cgColor
-        textLayer.display()
-        
-        var imageLayer = CALayer()
-        imageLayer.contents = UIImage(named: "pierre")?.cgImage
-        imageLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI_2)));
-        imageLayer.contentsGravity = .resizeAspect
-        layer.addSublayer(imageLayer)
-        
-        button11.firstMaterial?.locksAmbientWithDiffuse = true
-        button11.firstMaterial?.diffuse.contents = UIImage(named: "pierre")?.rotated(byDegrees: -90)
-        let button11Node = SCNNode(geometry: button11)
-        button11Node.name = "Button 11"
-        
-        
-        let button12 = SCNPlane(width: 0.2, height: 0.2)
-        
-        button12.firstMaterial?.diffuse.contents = UIColor.yellow
-        let button12Node = SCNNode(geometry: button12)
-        button12Node.name = "Button 12"
-        button12Node.position.x += 0.22
-        
-        let button13 = SCNPlane(width: 0.2, height: 0.2)
-        button13.firstMaterial?.diffuse.contents = UIColor.purple
-        let button13Node = SCNNode(geometry: button13)
-        button13Node.name = "Button 13"
-        button13Node.position.x += 0.22*2
-        
-        
-        let button21 = SCNPlane(width: 0.2, height: 0.2)
-        button21.firstMaterial?.diffuse.contents = UIColor.blue
-        let button21Node = SCNNode(geometry: button21)
-        button21Node.name = "Button 21"
-        button21Node.position.y += 0.22
-        
-        let button22 = SCNPlane(width: 0.2, height: 0.2)
-        button22.firstMaterial?.diffuse.contents = UIColor.white
-        let button22Node = SCNNode(geometry: button22)
-        button22Node.name = "Button 22"
-        button22Node.position.x += 0.22
-        button22Node.position.y += 0.22
-        
-        let button23 = SCNPlane(width: 0.2, height: 0.2)
-        button23.firstMaterial?.diffuse.contents = UIColor.orange
-        let button23Node = SCNNode(geometry: button23)
-        button23Node.name = "Button 23"
-        button23Node.position.x += 0.22*2
-        button23Node.position.y += 0.22
-        
-        convertNodeToTarget(node: button11Node)
-        convertNodeToTarget(node: button12Node)
-        convertNodeToTarget(node: button13Node)
-        convertNodeToTarget(node: button21Node)
-        convertNodeToTarget(node: button22Node)
-        convertNodeToTarget(node: button23Node)
-        
-        return [button11Node, button12Node, button13Node, button21Node, button22Node, button23Node]
-        
-    }
     
     // ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {

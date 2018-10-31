@@ -5,6 +5,10 @@ func conv(_ n: Float) -> String {
     return String(format: "%.02f", n)
 }
 
+func getMainColor() -> UIColor {
+    return UIColor(red: 38 / 255, green: 135 / 255, blue: 134 / 255, alpha: 1)
+}
+
 extension UIImage {
     
     func rotated(byDegrees degree: Double) -> UIImage {

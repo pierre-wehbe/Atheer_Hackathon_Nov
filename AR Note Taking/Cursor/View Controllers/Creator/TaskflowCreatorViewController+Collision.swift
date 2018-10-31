@@ -11,11 +11,13 @@ extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
         static let virtualNode = CollisionCategory.init(key: 1 << 1)
     }
     
-    func convertNodeToTarget(node: SCNNode) {
-        node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-        node.physicsBody?.isAffectedByGravity = false
-        node.physicsBody?.categoryBitMask = CollisionCategory.virtualNode.key
-        node.physicsBody?.contactTestBitMask = CollisionCategory.cursor.key
+    func convertNodesToTarget(nodes: [SCNNode]) {
+        for node in nodes {
+            node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            node.physicsBody?.isAffectedByGravity = false
+            node.physicsBody?.categoryBitMask = CollisionCategory.virtualNode.key
+            node.physicsBody?.contactTestBitMask = CollisionCategory.cursor.key
+        }
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
@@ -25,30 +27,31 @@ extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
         self.counter += 1
         shouldUpdate = !isOnTarget ? true : false
         isOnTarget = true
-        updateCursor()
+        updateCursor(withNode: contact.nodeB)
     }
     
     func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
         shouldUpdate = !isOnTarget ? true : false
         isOnTarget = true
-        updateCursor()
+        updateCursor(withNode: contact.nodeB)
     }
-    
+
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         print("End contact")
         shouldUpdate = isOnTarget ? true : false
         isOnTarget = false
-        updateCursor()
+        updateCursor(withNode: contact.nodeB)
+()
     }
     
-    func updateCursor() {
+    func updateCursor(withNode: SCNNode) {
         if shouldUpdate {
             if isOnTarget {
                 DispatchQueue.main.async {
                     self.cursorView.removeFromSuperview()
                     self.cursorView = self.cursorViewManager.onTarget
                     self.sceneView.addSubview(self.cursorView)
-                    self.currentTarget = .showTaskflows
+                    self.currentTarget = getCursorTargetFromNode(node: withNode)
                 }
             } else {
                 DispatchQueue.main.async {
