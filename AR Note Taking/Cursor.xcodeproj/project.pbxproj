@@ -27,6 +27,7 @@
 		8FBEED35218A3D8600F66CAD /* TaskflowCreatorViewController+CreatorMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED34218A3D8600F66CAD /* TaskflowCreatorViewController+CreatorMenu.swift */; };
 		8FBEED37218A486800F66CAD /* Taskflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED36218A486800F66CAD /* Taskflow.swift */; };
 		8FBEED39218A48DB00F66CAD /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED38218A48DB00F66CAD /* Step.swift */; };
+		8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		8FBEED34218A3D8600F66CAD /* TaskflowCreatorViewController+CreatorMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+CreatorMenu.swift"; sourceTree = "<group>"; };
 		8FBEED36218A486800F66CAD /* Taskflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taskflow.swift; sourceTree = "<group>"; };
 		8FBEED38218A48DB00F66CAD /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
+		8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		8F9F64E721781C8200F6E005 /* Cursor */ = {
 			isa = PBXGroup;
 			children = (
+				8FBEED2F218A313400F66CAD /* Model */,
 				8FBEED24218A2A4800F66CAD /* View Controllers */,
 				8F9F64E821781C8200F6E005 /* AppDelegate.swift */,
 				8F9F64EA21781C8200F6E005 /* art.scnassets */,
@@ -134,6 +137,7 @@
 				8F1E24F5217D319E004A59C7 /* RealScale.swift */,
 				8FBEED2021893CE800F66CAD /* TaskflowCell.swift */,
 				8FBEED2121893CE800F66CAD /* TaskflowCell.xib */,
+				8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */,
 			);
 			path = Cursor;
 			sourceTree = "<group>";
@@ -159,7 +163,6 @@
 		8FBEED24218A2A4800F66CAD /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8FBEED2F218A313400F66CAD /* Model */,
 				8FBEED2A218A2BB900F66CAD /* Viewer */,
 				8FBEED29218A2BAD00F66CAD /* Creator */,
 			);
@@ -340,6 +343,7 @@
 				8F1E24F6217D319E004A59C7 /* RealScale.swift in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
 				8FBEED2221893CE800F66CAD /* TaskflowCell.swift in Sources */,
+				8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */,
 				8FBEED39218A48DB00F66CAD /* Step.swift in Sources */,
 				8F93BEC9217B9CA1002435CB /* HelperFunction.swift in Sources */,
 			);
