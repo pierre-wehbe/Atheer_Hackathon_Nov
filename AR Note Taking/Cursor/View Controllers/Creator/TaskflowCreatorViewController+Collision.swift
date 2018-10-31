@@ -23,8 +23,6 @@ extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB
-        print("Begin Hit \(counter) between \(nodeA.name) & \(nodeB.name)")
-        self.counter += 1
         shouldUpdate = !isOnTarget ? true : false
         isOnTarget = true
         updateCursor(withNode: contact.nodeB)
@@ -37,7 +35,6 @@ extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
     }
 
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        print("End contact")
         shouldUpdate = isOnTarget ? true : false
         isOnTarget = false
         updateCursor(withNode: contact.nodeB)

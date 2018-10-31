@@ -6,12 +6,11 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var instructionLabel: UILabel!
-
+    @IBOutlet weak var menuButton: UIButton!
     
-    var counter = 0
     var isOnTarget = false
     var shouldUpdate = true
-    
+
     var cursorNode: SCNNode!
     var cursorViewManager: CursorView!
     var cursorView: UIView!
@@ -20,33 +19,17 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     var menuNode: SCNNode!
     var isMenuVisible = false
 
-    
     var currentTarget: CursorTarget = .none
+
+    var isCreatingStep = false
     
+    // Initial Steps
+    var steps: [Step] = []
+    var currentStep: Int = 0
     
-    struct CursorView {
-        let ON_TARGET_WIDTH = CGFloat(2).toPoint(unit: .mm)
-        let OFF_TARGET_WIDTH = CGFloat(1).toPoint(unit: .mm)
-        
-        var onTarget: UIView!
-        var offTarget: UIView!
-        
-        init(sceneView: ARSCNView) {
-            onTarget = UIView(frame: CGRect(origin: CGPoint(x: sceneView.center.x - ON_TARGET_WIDTH/2.0, y: sceneView.center.y - 1.0*ON_TARGET_WIDTH), size: CGSize(width: ON_TARGET_WIDTH, height: ON_TARGET_WIDTH)))
-            onTarget.backgroundColor = .clear
-            onTarget.layer.cornerRadius = ON_TARGET_WIDTH/2.0
-            onTarget.layer.masksToBounds = true
-            onTarget.layer.borderColor = UIColor.red.cgColor
-            onTarget.layer.borderWidth = CGFloat(0.5).toPoint(unit: .mm)
-            
-            offTarget = UIView(frame: CGRect(origin: CGPoint(x: sceneView.center.x - OFF_TARGET_WIDTH/2.0, y: sceneView.center.y - 1.5*OFF_TARGET_WIDTH), size: CGSize(width: OFF_TARGET_WIDTH, height: OFF_TARGET_WIDTH)))
-            offTarget.backgroundColor = .red
-            offTarget.layer.cornerRadius = ON_TARGET_WIDTH/2.0
-            offTarget.layer.masksToBounds = true
-        }
-        
-    }
-    
+    // Menu Buttons
+    var menuButtonNodes: [SCNNode] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set the view's delegate
@@ -70,13 +53,15 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         
         // Collision Delegate
         sceneView.scene.physicsWorld.contactDelegate = self
-        print(sceneView.scene.physicsWorld.timeStep)
         sceneView.scene.physicsWorld.timeStep = 1/300
         
         // Cursor View
         cursorViewManager = CursorView(sceneView: sceneView)
         
         configureLighting()
+        
+        // Generate Buttons
+        menuButtonNodes = generateMenu(withButtons: getMainMenuButtons())
     }
     
     func configureLighting() {
@@ -85,13 +70,20 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     }
     
     @IBAction func toggleMenu(_ sender: Any) {
+        if menuButton.titleLabel?.text == "Done" {
+            menuButton.titleLabel?.text = "Menu"
+            toggleMenu(sender)
+            isCreatingStep = false
+            return
+        }
+
         if isMenuVisible {
+            cursorView = cursorViewManager.offTarget
             DispatchQueue.main.async {
                 self.menuNode.removeFromParentNode()
                 self.menuNode = nil
             }
             isMenuVisible = !isMenuVisible
-            cursorView = cursorViewManager.offTarget
             return
         }
         
@@ -102,12 +94,11 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         toModify.m42 -= toModify.m32*distance
         toModify.m43 -= toModify.m33*distance
         
-        let menuButtonNodes = generateMenu(withButtons: getMainMenuButtons())
         menuNode = SCNNode()
-        
         menuNode.setWorldTransform(toModify)
+
         DispatchQueue.main.async {
-            for buttonNode in menuButtonNodes {
+            for buttonNode in self.menuButtonNodes {
                 self.menuNode.addChildNode(buttonNode)
             }
             self.sceneView.scene.rootNode.addChildNode(self.menuNode)
@@ -183,28 +174,29 @@ extension TaskflowCreatorViewController {
     }
     
     @objc func didReceiveTapGesture(_ sender: UITapGestureRecognizer) {
-        handleCurrentTargetTapped()
-        //        let location = sender.location(in: sceneView)
-        //
-        //        guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane]).first
-        //            else { return }
-        //
-        //
-        //        let anchor = ARAnchor(transform: hitTestResult.worldTransform)
-        //        sceneView.session.add(anchor: anchor)
+        if isCreatingStep {
+            let location = sender.location(in: sceneView)
+    
+            guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane]).first
+                else { return }
+            let stepAnchor = ARAnchor(transform: hitTestResult.worldTransform)
+            sceneView.session.add(anchor: stepAnchor)
+        } else {
+            handleCurrentTargetTapped()
+        }
     }
-    
-    
-    
+
     // ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard !(anchor is ARPlaneAnchor) else { return }
-        //        let menuButtonNodes = generateMenuButtonNodes()
-        //        DispatchQueue.main.async {
-        //            for buttonNode in menuButtonNodes {
-        //                node.addChildNode(buttonNode)
-        //            }
-        //        }
+
+        addNewStep(newStep: Step(name: "test"))
+        let stepNode = generateStepNode()
+        stepNode.constraints = [SCNBillboardConstraint()] // So that the node always faces the user
+
+        DispatchQueue.main.async {
+            node.addChildNode(stepNode)
+        }
     }
 }
 

@@ -28,6 +28,8 @@
 		8FBEED37218A486800F66CAD /* Taskflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED36218A486800F66CAD /* Taskflow.swift */; };
 		8FBEED39218A48DB00F66CAD /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED38218A48DB00F66CAD /* Step.swift */; };
 		8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */; };
+		8FBEED3D218A505300F66CAD /* CursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3C218A505300F66CAD /* CursorView.swift */; };
+		8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3E218A5AFD00F66CAD /* StepNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		8FBEED36218A486800F66CAD /* Taskflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taskflow.swift; sourceTree = "<group>"; };
 		8FBEED38218A48DB00F66CAD /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
+		8FBEED3C218A505300F66CAD /* CursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorView.swift; sourceTree = "<group>"; };
+		8FBEED3E218A5AFD00F66CAD /* StepNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +199,8 @@
 				8FBEED32218A335C00F66CAD /* MenuButton.swift */,
 				8FBEED36218A486800F66CAD /* Taskflow.swift */,
 				8FBEED38218A48DB00F66CAD /* Step.swift */,
+				8FBEED3C218A505300F66CAD /* CursorView.swift */,
+				8FBEED3E218A5AFD00F66CAD /* StepNode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -343,6 +349,8 @@
 				8F1E24F6217D319E004A59C7 /* RealScale.swift in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
 				8FBEED2221893CE800F66CAD /* TaskflowCell.swift in Sources */,
+				8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */,
+				8FBEED3D218A505300F66CAD /* CursorView.swift in Sources */,
 				8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */,
 				8FBEED39218A48DB00F66CAD /* Step.swift in Sources */,
 				8F93BEC9217B9CA1002435CB /* HelperFunction.swift in Sources */,

@@ -14,11 +14,11 @@ class Step: NSObject, NSCoding {
     private var _name: String = ""
     
     //Constructor
-    init(name: String) {
+    init(name: String = "") {
         self._uuid = NSUUID().uuidString
         self._name = name
     }
-    
+
     //Coder Functions
     required init?(coder aDecoder: NSCoder) {
         if let uuidObject = aDecoder.decodeObject(forKey: Keys.UUID) as? String {

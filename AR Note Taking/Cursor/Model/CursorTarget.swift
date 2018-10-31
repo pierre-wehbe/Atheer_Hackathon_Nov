@@ -13,6 +13,7 @@ enum CursorTarget: String {
     case CREATE_STEP = "Create New Step"
     case SAVE_TASKFLOW = "Save changes"
     case DELETE_TASKFLOW = "Delete Taskfloww"
+    case STEP_NODE = "Step Node"
     
 }
 

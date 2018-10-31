@@ -1,3 +1,4 @@
+import ARKit
 import Foundation
 import SceneKit
 import UIKit
@@ -32,12 +33,11 @@ extension TaskflowCreatorViewController {
         case .VOICE_COMMAND:
             toggleVoiceCommand()
             return
-        default:
+        case .STEP_NODE:
+            print("This is a step")
             return
         }
     }
-    
-    
     
     func cancelTaskflowChanges() {
         print("cancelTaskflowChanges")
@@ -46,27 +46,120 @@ extension TaskflowCreatorViewController {
     
     func createNewStep() {
         print("createNewStep")
+        isCreatingStep = true
+        toggleMenu(self)
+        menuButton.titleLabel?.text = "Done"
+        cursorView = cursorViewManager.addStepNode
+    }
+
+    func addNewStep(newStep: Step) {
+        if currentStep == steps.count - 1 {
+            steps.append(newStep)
+            currentStep += 1
+        } else {
+            steps.insert(Step(), at: currentStep)
+        }
+        renameSteps()
     }
     
     func deleteCurrentStep() {
         print("deleteCurrentStep")
+        if steps.count == 0 {
+            print("No steps to be deleted")
+            return
+        }
+        
+        //If deleted last step
+        if currentStep == steps.count - 1 {
+            steps.remove(at: currentStep)
+            currentStep -= 1
+        } else {
+            steps.remove(at: currentStep)
+        }
+        
+        if steps.isEmpty {
+            currentStep = 0
+            return
+        }
+        renameSteps()
     }
     
+    func renameSteps() {
+        var index = 1
+        for step in steps {
+            step.name = "Step \(index)"
+            index += 1
+        }
+    }
+
     func nextStep() {
         print("nextStep")
+        currentStep = currentStep == steps.count - 1 ? currentStep : currentStep + 1
     }
     
     func previousStep() {
         print("previousStep")
+        currentStep = currentStep == 0 ? 0 : currentStep - 1
     }
     
+    //TODO: Need to delete the taskflow itself when in editing mode
     func deleteTaskflow() {
         print("deleteTaskflow")
+        self.dismiss(animated: true, completion: nil)
     }
     
     func saveTaskflow() {
         print("saveTaskflow")
+        if steps.count == 0 {
+            setInstruction(text: "Please create at least one step in this taskflow")
+            return
+        }
+        
+        sceneView.session.getCurrentWorldMap { (worldMap, error) in
+            guard let worldMap = worldMap else {
+                return self.setInstruction(text: "Error getting current world map")
+            }
+            self.showAlertView(worldMap: worldMap)
+        }
     }
+    
+    func showAlertView(worldMap: ARWorldMap) {
+        //Creating UIAlertController and
+        //Setting title and message for the alert dialog
+        let alertController = UIAlertController(title: "New Taskflow", message: "Name that taskflow", preferredStyle: .alert)
+        
+        //the confirm action taking the inputs
+        let confirmAction = UIAlertAction(title: "Save", style: .default) { (_) in
+            //getting the input values from user
+            if let name = alertController.textFields?[0].text {
+                if FilesManager.shared.saveTaskflow(taskflow: Taskflow(name: name, worldMap: worldMap, image: UIImage(), steps: self.steps)) {
+                    DispatchQueue.main.async {
+                        self.setInstruction(text: "Taskflow is saved.")
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.setInstruction(text: "Error: Taskflow not saved.")
+                    }
+                }
+            }
+        }
+        
+        //the cancel action doing nothing
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        //adding textfields to our dialog box
+        alertController.addTextField { (textField) in
+            textField.placeholder = "My first taskflow"
+        }
+        
+        //adding the action to dialogbox
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        
+        //finally presenting the dialog box
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
     
     func toggleVoiceCommand() {
         print("toggleVoiceCommand")
