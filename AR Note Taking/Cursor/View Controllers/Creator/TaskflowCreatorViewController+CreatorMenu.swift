@@ -41,6 +41,7 @@ extension TaskflowCreatorViewController {
     
     func cancelTaskflowChanges() {
         print("cancelTaskflowChanges")
+        self.dismiss(animated: true, completion: nil)
     }
     
     func createNewStep() {
@@ -75,15 +76,14 @@ extension TaskflowCreatorViewController {
         var col1: [MenuButton] = []
         var col2: [MenuButton] = []
         
-        col1.append(MenuButton(name: .CANCEL_TASKFLOW_EDIT))
-        col1.append(MenuButton(name: .PREV_STEP, image: UIImage(named: "pierre")?.rotated(byDegrees: -90)))
-        col1.append(MenuButton(name: .DELETE_STEP))
-        col1.append(MenuButton(name: .SAVE_TASKFLOW))
-        
-        col2.append(MenuButton(name: .VOICE_COMMAND))
-        col2.append(MenuButton(name: .NEXT_STEP))
-        col2.append(MenuButton(name: .CREATE_STEP))
-        col2.append(MenuButton(name: .DELETE_TASKFLOW))
+        col1.append(MenuButton(name: .CANCEL_TASKFLOW_EDIT, image: UIImage(named: "cancel")?.rotated(byDegrees: -90)))
+        col1.append(MenuButton(name: .PREV_STEP, image: UIImage(named: "previous")?.rotated(byDegrees: -90)))
+        col1.append(MenuButton(name: .DELETE_STEP, image: UIImage(named: "deleteStep")?.rotated(byDegrees: -90)))
+        col1.append(MenuButton(name: .SAVE_TASKFLOW, image: UIImage(named: "save")?.rotated(byDegrees: -90)))
+        col2.append(MenuButton(name: .VOICE_COMMAND, image: UIImage(named: "voiceCommand")?.rotated(byDegrees: -90)))
+        col2.append(MenuButton(name: .NEXT_STEP, image: UIImage(named: "next")?.rotated(byDegrees: -90)))
+        col2.append(MenuButton(name: .CREATE_STEP, image: UIImage(named: "createStep")?.rotated(byDegrees: -90)))
+        col2.append(MenuButton(name: .DELETE_TASKFLOW, image: UIImage(named: "delete")?.rotated(byDegrees: -90)))
         
         return [col1, col2]
     }
