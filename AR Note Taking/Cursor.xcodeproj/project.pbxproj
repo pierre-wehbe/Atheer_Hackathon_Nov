@@ -16,8 +16,6 @@
 		8F9F64F521781C8300F6E005 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F9F64F321781C8300F6E005 /* LaunchScreen.storyboard */; };
 		8F9F650021781C8300F6E005 /* CursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9F64FF21781C8300F6E005 /* CursorTests.swift */; };
 		8F9F650B21781C8300F6E005 /* CursorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9F650A21781C8300F6E005 /* CursorUITests.swift */; };
-		8FBEED2221893CE800F66CAD /* TaskflowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED2021893CE800F66CAD /* TaskflowCell.swift */; };
-		8FBEED2321893CE800F66CAD /* TaskflowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FBEED2121893CE800F66CAD /* TaskflowCell.xib */; };
 		8FBEED26218A2B4900F66CAD /* TaskflowCreatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED25218A2B4900F66CAD /* TaskflowCreatorViewController.swift */; };
 		8FBEED28218A2B7B00F66CAD /* TaskflowViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED27218A2B7B00F66CAD /* TaskflowViewerViewController.swift */; };
 		8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED2B218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift */; };
@@ -30,6 +28,8 @@
 		8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */; };
 		8FBEED3D218A505300F66CAD /* CursorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3C218A505300F66CAD /* CursorView.swift */; };
 		8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3E218A5AFD00F66CAD /* StepNode.swift */; };
+		8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED40218A6F3500F66CAD /* TaskflowListViewController.swift */; };
+		8FBEED43218A70A800F66CAD /* TaskflowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED42218A70A800F66CAD /* TaskflowCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +65,6 @@
 		8F9F650621781C8300F6E005 /* CursorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CursorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F9F650A21781C8300F6E005 /* CursorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorUITests.swift; sourceTree = "<group>"; };
 		8F9F650C21781C8300F6E005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8FBEED2021893CE800F66CAD /* TaskflowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowCell.swift; sourceTree = "<group>"; };
-		8FBEED2121893CE800F66CAD /* TaskflowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskflowCell.xib; sourceTree = "<group>"; };
 		8FBEED25218A2B4900F66CAD /* TaskflowCreatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowCreatorViewController.swift; sourceTree = "<group>"; };
 		8FBEED27218A2B7B00F66CAD /* TaskflowViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowViewerViewController.swift; sourceTree = "<group>"; };
 		8FBEED2B218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+Cursor.swift"; sourceTree = "<group>"; };
@@ -79,6 +77,8 @@
 		8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesManager.swift; sourceTree = "<group>"; };
 		8FBEED3C218A505300F66CAD /* CursorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorView.swift; sourceTree = "<group>"; };
 		8FBEED3E218A5AFD00F66CAD /* StepNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepNode.swift; sourceTree = "<group>"; };
+		8FBEED40218A6F3500F66CAD /* TaskflowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowListViewController.swift; sourceTree = "<group>"; };
+		8FBEED42218A70A800F66CAD /* TaskflowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,8 +139,6 @@
 				8F9F64F321781C8300F6E005 /* LaunchScreen.storyboard */,
 				8F9F64F621781C8300F6E005 /* Info.plist */,
 				8F1E24F5217D319E004A59C7 /* RealScale.swift */,
-				8FBEED2021893CE800F66CAD /* TaskflowCell.swift */,
-				8FBEED2121893CE800F66CAD /* TaskflowCell.xib */,
 				8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */,
 			);
 			path = Cursor;
@@ -188,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				8FBEED27218A2B7B00F66CAD /* TaskflowViewerViewController.swift */,
+				8FBEED40218A6F3500F66CAD /* TaskflowListViewController.swift */,
 			);
 			path = Viewer;
 			sourceTree = "<group>";
@@ -201,6 +200,7 @@
 				8FBEED38218A48DB00F66CAD /* Step.swift */,
 				8FBEED3C218A505300F66CAD /* CursorView.swift */,
 				8FBEED3E218A5AFD00F66CAD /* StepNode.swift */,
+				8FBEED42218A70A800F66CAD /* TaskflowCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,7 +311,6 @@
 			files = (
 				8F9F64EB21781C8200F6E005 /* art.scnassets in Resources */,
 				8F9F64F521781C8300F6E005 /* LaunchScreen.storyboard in Resources */,
-				8FBEED2321893CE800F66CAD /* TaskflowCell.xib in Resources */,
 				8F9F64F221781C8300F6E005 /* Assets.xcassets in Resources */,
 				8F9F64F021781C8200F6E005 /* Main.storyboard in Resources */,
 			);
@@ -348,8 +347,9 @@
 				8FBEED26218A2B4900F66CAD /* TaskflowCreatorViewController.swift in Sources */,
 				8F1E24F6217D319E004A59C7 /* RealScale.swift in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
-				8FBEED2221893CE800F66CAD /* TaskflowCell.swift in Sources */,
+				8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */,
 				8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */,
+				8FBEED43218A70A800F66CAD /* TaskflowCell.swift in Sources */,
 				8FBEED3D218A505300F66CAD /* CursorView.swift in Sources */,
 				8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */,
 				8FBEED39218A48DB00F66CAD /* Step.swift in Sources */,

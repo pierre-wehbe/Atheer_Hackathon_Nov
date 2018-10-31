@@ -135,6 +135,7 @@ extension TaskflowCreatorViewController {
                 if FilesManager.shared.saveTaskflow(taskflow: Taskflow(name: name, worldMap: worldMap, image: UIImage(), steps: self.steps)) {
                     DispatchQueue.main.async {
                         self.setInstruction(text: "Taskflow is saved.")
+                        self.dismiss(animated: true, completion: nil)
                     }
                 } else {
                     DispatchQueue.main.async {
