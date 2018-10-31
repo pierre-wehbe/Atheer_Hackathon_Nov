@@ -2,29 +2,37 @@ import UIKit
 import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
-
+class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
+    
     @IBOutlet var sceneView: ARSCNView!
     
     var counter = 0
     var isOnTarget = false
     var shouldUpdate = true
-
+    
     var cursorNode: SCNNode!
     var cursorViewManager: CursorView!
     var cursorView: UIView!
     var lastTimerInterval = TimeInterval()
-
+    
     var menuNode: SCNNode!
     var isMenuVisible = false
-
+    
+    enum CursorTarget {
+        case none
+        case showTaskflows
+    }
+    
+    var currentTarget: CursorTarget = .none
+    
+    
     struct CursorView {
         let ON_TARGET_WIDTH = CGFloat(2).toPoint(unit: .mm)
         let OFF_TARGET_WIDTH = CGFloat(1).toPoint(unit: .mm)
-
+        
         var onTarget: UIView!
         var offTarget: UIView!
-
+        
         init(sceneView: ARSCNView) {
             onTarget = UIView(frame: CGRect(origin: CGPoint(x: sceneView.center.x - ON_TARGET_WIDTH/2.0, y: sceneView.center.y - 1.0*ON_TARGET_WIDTH), size: CGSize(width: ON_TARGET_WIDTH, height: ON_TARGET_WIDTH)))
             onTarget.backgroundColor = .clear
@@ -38,9 +46,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
             offTarget.layer.cornerRadius = ON_TARGET_WIDTH/2.0
             offTarget.layer.masksToBounds = true
         }
-
+        
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set the view's delegate
@@ -54,7 +62,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         
         cursorNode = createCursor()
         scene.rootNode.addChildNode(cursorNode)
-
+        
         // Set the scene to the view
         sceneView.scene = scene
         sceneView.session.delegate = self
@@ -71,7 +79,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         cursorViewManager = CursorView(sceneView: sceneView)
         
     }
-
+    
     
     @IBAction func toggleMenu(_ sender: Any) {
         if isMenuVisible {
@@ -130,17 +138,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
         sceneView.session.pause()
     }
     
-    // MARK: - ARSCNViewDelegate
-    
-    /*
-     // Override to create and configure nodes for anchors added to the view's session.
-     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-     let node = SCNNode()
-     
-     return node
-     }
-     */
-    
     func session(_ session: ARSession, didFailWithError error: Error) {
         
     }
@@ -156,82 +153,30 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     }
 }
 
-// Collision Delegate
-extension ViewController: SCNPhysicsContactDelegate {
-
-    struct CollisionCategory {
-        let key: Int
-        static let cursor = CollisionCategory.init(key: 1 << 0)
-        static let virtualNode = CollisionCategory.init(key: 1 << 1)
-    }
-
-    func convertNodeToTarget(node: SCNNode) {
-        node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-        node.physicsBody?.isAffectedByGravity = false
-        node.physicsBody?.categoryBitMask = CollisionCategory.virtualNode.key
-        node.physicsBody?.contactTestBitMask = CollisionCategory.cursor.key
-    }
-
-    func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        let nodeA = contact.nodeA
-        let nodeB = contact.nodeB
-        print("Begin Hit \(counter) between \(nodeA.name) & \(nodeB.name)")
-        self.counter += 1
-        
-        shouldUpdate = !isOnTarget ? true : false
-        isOnTarget = true
-        updateCursor()
-    }
-
-    func physicsWorld(_ world: SCNPhysicsWorld, didUpdate contact: SCNPhysicsContact) {
-        print("On going contact")
-        shouldUpdate = !isOnTarget ? true : false
-        isOnTarget = true
-        updateCursor()
-    }
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        print("End contact")
-        shouldUpdate = isOnTarget ? true : false
-        isOnTarget = false
-        updateCursor()
-    }
-    
-    func updateCursor() {
-        if shouldUpdate {
-            if isOnTarget {
-                DispatchQueue.main.async {
-                    self.cursorView.removeFromSuperview()
-                    self.cursorView = self.cursorViewManager.onTarget
-                    self.sceneView.addSubview(self.cursorView)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.cursorView.removeFromSuperview()
-                    self.cursorView = self.cursorViewManager.offTarget
-                    self.sceneView.addSubview(self.cursorView)
-                }
-            }
-        }
-    }
-}
 
 // Adding anchors
-extension ViewController {
+extension TaskflowCreatorViewController {
     func addTapGestureToSceneView() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didReceiveTapGesture(_:)))
         sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     @objc func didReceiveTapGesture(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: sceneView)
-        
-        guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane]).first
-            else { return }
-        
-        
-        let anchor = ARAnchor(transform: hitTestResult.worldTransform)
-        sceneView.session.add(anchor: anchor)
+        if currentTarget == .showTaskflows {
+            showTaskflows()
+        }
+        //        let location = sender.location(in: sceneView)
+        //
+        //        guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane]).first
+        //            else { return }
+        //
+        //
+        //        let anchor = ARAnchor(transform: hitTestResult.worldTransform)
+        //        sceneView.session.add(anchor: anchor)
+    }
+    
+    func showTaskflows() {
+        print("Showing Taskflows")
     }
     
     func generateMenuButtonNodes() -> [SCNNode] {
@@ -261,14 +206,15 @@ extension ViewController {
         button11.firstMaterial?.diffuse.contents = UIImage(named: "pierre")?.rotated(byDegrees: -90)
         let button11Node = SCNNode(geometry: button11)
         button11Node.name = "Button 11"
-
+        
         
         let button12 = SCNPlane(width: 0.2, height: 0.2)
+        
         button12.firstMaterial?.diffuse.contents = UIColor.yellow
         let button12Node = SCNNode(geometry: button12)
         button12Node.name = "Button 12"
         button12Node.position.x += 0.22
-
+        
         let button13 = SCNPlane(width: 0.2, height: 0.2)
         button13.firstMaterial?.diffuse.contents = UIColor.purple
         let button13Node = SCNNode(geometry: button13)
@@ -306,50 +252,16 @@ extension ViewController {
         return [button11Node, button12Node, button13Node, button21Node, button22Node, button23Node]
         
     }
-
+    
     // ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard !(anchor is ARPlaneAnchor) else { return }
-//        let menuButtonNodes = generateMenuButtonNodes()
-//        DispatchQueue.main.async {
-//            for buttonNode in menuButtonNodes {
-//                node.addChildNode(buttonNode)
-//            }
-//        }
+        //        let menuButtonNodes = generateMenuButtonNodes()
+        //        DispatchQueue.main.async {
+        //            for buttonNode in menuButtonNodes {
+        //                node.addChildNode(buttonNode)
+        //            }
+        //        }
     }
 }
 
-// Cursor Specific
-extension ViewController {
-    
-    func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        let cameraTrans = frame.camera.transform
-        var toModify = SCNMatrix4(cameraTrans)
-        let distance: Float = 0
-        toModify.m41 -= toModify.m31*distance
-        toModify.m42 -= toModify.m32*distance
-        toModify.m43 -= toModify.m33*distance
-        cursorNode.setWorldTransform(toModify)
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        let deltaTime = time - lastTimerInterval
-        if deltaTime > 0.25 {
-        }
-    }
-    
-    func createCursor() -> SCNNode {
-        let cursorNode = SCNNode()
-        cursorNode.name = "cursor"
-        let cursor = SCNBox(width: 0.001, height: 0.001, length: 5, chamferRadius: 0)
-        cursor.firstMaterial?.diffuse.contents = UIColor.clear
-        cursorNode.geometry = cursor
-        
-        // Physics Body for collision
-        cursorNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-        cursorNode.physicsBody?.isAffectedByGravity = false
-        cursorNode.physicsBody?.categoryBitMask = CollisionCategory.cursor.key
-        cursorNode.physicsBody?.collisionBitMask = CollisionCategory.virtualNode.key
-        return cursorNode
-    }
-}
