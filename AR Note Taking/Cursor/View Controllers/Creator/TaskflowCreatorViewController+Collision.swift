@@ -4,22 +4,7 @@ import UIKit
 
 // Collision Delegate
 extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
-    
-    struct CollisionCategory {
-        let key: Int
-        static let cursor = CollisionCategory.init(key: 1 << 0)
-        static let virtualNode = CollisionCategory.init(key: 1 << 1)
-    }
-    
-    func convertNodesToTarget(nodes: [SCNNode]) {
-        for node in nodes {
-            node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            node.physicsBody?.isAffectedByGravity = false
-            node.physicsBody?.categoryBitMask = CollisionCategory.virtualNode.key
-            node.physicsBody?.contactTestBitMask = CollisionCategory.cursor.key
-        }
-    }
-    
+
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         let nodeA = contact.nodeA
         let nodeB = contact.nodeB

@@ -10,6 +10,15 @@ func getMainColor() -> UIColor {
     return UIColor(red: 38 / 255, green: 135 / 255, blue: 134 / 255, alpha: 1)
 }
 
+func convertNodesToTarget(nodes: [SCNNode]) {
+    for node in nodes {
+        node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+        node.physicsBody?.isAffectedByGravity = false
+        node.physicsBody?.categoryBitMask = CollisionCategory.virtualNode.key
+        node.physicsBody?.contactTestBitMask = CollisionCategory.cursor.key
+    }
+}
+
 extension UIImage {
     
     func rotated(byDegrees degree: Double) -> UIImage {

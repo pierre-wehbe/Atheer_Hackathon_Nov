@@ -30,6 +30,7 @@
 		8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED3E218A5AFD00F66CAD /* StepNode.swift */; };
 		8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED40218A6F3500F66CAD /* TaskflowListViewController.swift */; };
 		8FBEED43218A70A800F66CAD /* TaskflowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED42218A70A800F66CAD /* TaskflowCell.swift */; };
+		8FBEED45218A742000F66CAD /* CollisionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED44218A742000F66CAD /* CollisionCategory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		8FBEED3E218A5AFD00F66CAD /* StepNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepNode.swift; sourceTree = "<group>"; };
 		8FBEED40218A6F3500F66CAD /* TaskflowListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowListViewController.swift; sourceTree = "<group>"; };
 		8FBEED42218A70A800F66CAD /* TaskflowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowCell.swift; sourceTree = "<group>"; };
+		8FBEED44218A742000F66CAD /* CollisionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 				8FBEED3C218A505300F66CAD /* CursorView.swift */,
 				8FBEED3E218A5AFD00F66CAD /* StepNode.swift */,
 				8FBEED42218A70A800F66CAD /* TaskflowCell.swift */,
+				8FBEED44218A742000F66CAD /* CollisionCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				8FBEED28218A2B7B00F66CAD /* TaskflowViewerViewController.swift in Sources */,
 				8FBEED35218A3D8600F66CAD /* TaskflowCreatorViewController+CreatorMenu.swift in Sources */,
 				8FBEED26218A2B4900F66CAD /* TaskflowCreatorViewController.swift in Sources */,
+				8FBEED45218A742000F66CAD /* CollisionCategory.swift in Sources */,
 				8F1E24F6217D319E004A59C7 /* RealScale.swift in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
 				8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */,

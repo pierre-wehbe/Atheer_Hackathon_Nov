@@ -57,7 +57,7 @@ extension TaskflowCreatorViewController {
             steps.append(newStep)
             currentStep += 1
         } else {
-            steps.insert(Step(), at: currentStep)
+            steps.insert(newStep, at: currentStep)
         }
         renameSteps()
     }

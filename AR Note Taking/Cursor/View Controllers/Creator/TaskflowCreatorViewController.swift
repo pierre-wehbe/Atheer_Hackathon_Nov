@@ -189,8 +189,8 @@ extension TaskflowCreatorViewController {
     // ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard !(anchor is ARPlaneAnchor) else { return }
-
-        addNewStep(newStep: Step(name: "test"))
+        print("anchor \(anchor.identifier.uuidString)")
+        addNewStep(newStep: Step(uuid: anchor.identifier.uuidString))
         let stepNode = generateStepNode()
         stepNode.constraints = [SCNBillboardConstraint()] // So that the node always faces the user
 
@@ -199,4 +199,3 @@ extension TaskflowCreatorViewController {
         }
     }
 }
-

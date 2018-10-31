@@ -14,9 +14,9 @@ class Step: NSObject, NSCoding {
     private var _name: String = ""
     
     //Constructor
-    init(name: String = "") {
-        self._uuid = NSUUID().uuidString
-        self._name = name
+    init(uuid: String) {
+        self._uuid = uuid
+        self._name = ""
     }
 
     //Coder Functions
