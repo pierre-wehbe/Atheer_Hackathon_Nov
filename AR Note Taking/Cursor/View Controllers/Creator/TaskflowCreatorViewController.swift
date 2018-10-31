@@ -5,6 +5,8 @@ import ARKit
 class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var instructionLabel: UILabel!
+
     
     var counter = 0
     var isOnTarget = false
@@ -74,8 +76,13 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         // Cursor View
         cursorViewManager = CursorView(sceneView: sceneView)
         
+        configureLighting()
     }
     
+    func configureLighting() {
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
+    }
     
     @IBAction func toggleMenu(_ sender: Any) {
         if isMenuVisible {
@@ -110,11 +117,29 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Create a session configuration
+        resetTrackingConfiguration()
+    }
+    
+    func resetTrackingConfiguration() {
         let configuration = ARWorldTrackingConfiguration()
-        // Run the view's session
-        sceneView.session.run(configuration)
+        configuration.planeDetection = [.horizontal]
+        let options: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
+        setInstruction(text: "Move camera around to map your surrounding space.")
+        sceneView.debugOptions = [.showFeaturePoints]
+        sceneView.session.run(configuration, options: options)
+    }
+    
+    func setInstruction(text: String) {
+        UIView.animate(withDuration: 1, animations: {
+            self.instructionLabel.text = text
+        }) { (true) in
+            //Wait 3 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
+                UIView.animate(withDuration: 1) {
+                    self.instructionLabel.text = ""
+                }
+            })
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
