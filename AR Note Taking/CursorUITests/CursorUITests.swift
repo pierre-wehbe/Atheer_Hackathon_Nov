@@ -1,14 +1,14 @@
 //
-//  AR_Note_TakingUITests.swift
-//  AR Note TakingUITests
+//  CursorUITests.swift
+//  CursorUITests
 //
-//  Created by Pierre WEHBE on 10/30/18.
+//  Created by Pierre WEHBE on 10/17/18.
 //  Copyright © 2018 Atheer. All rights reserved.
 //
 
 import XCTest
 
-class AR_Note_TakingUITests: XCTestCase {
+class CursorUITests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

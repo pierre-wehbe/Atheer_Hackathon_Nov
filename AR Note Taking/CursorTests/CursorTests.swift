@@ -1,15 +1,15 @@
 //
-//  AR_Note_TakingTests.swift
-//  AR Note TakingTests
+//  CursorTests.swift
+//  CursorTests
 //
-//  Created by Pierre WEHBE on 10/30/18.
+//  Created by Pierre WEHBE on 10/17/18.
 //  Copyright © 2018 Atheer. All rights reserved.
 //
 
 import XCTest
-@testable import AR_Note_Taking
+@testable import Cursor
 
-class AR_Note_TakingTests: XCTestCase {
+class CursorTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
