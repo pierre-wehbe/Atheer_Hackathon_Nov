@@ -19,10 +19,10 @@ extension TaskflowCreatorViewController {
             deleteCurrentStep()
             return
         case .NEXT_STEP:
-            nextStep()
+            nextStep(fromButton: true)
             return
         case .PREV_STEP:
-            previousStep()
+            previousStep(fromButton: true)
             return
         case .DELETE_TASKFLOW:
             deleteTaskflow()
@@ -35,8 +35,45 @@ extension TaskflowCreatorViewController {
             return
         case .STEP_NODE:
             print("This is a step")
+            editStepNode()
             return
+            
+            
+        case .DONE_NOTE:
+            print("Done Taking Note")
+            doneEditingStep()
+            return
+        case .PHOTO_NOTE:
+            print("This is a photonote")
+            return
+        case .VIDEO_NOTE:
+            print("This is a videonote")
+            return
+        case .VOICE_NOTE:
+            print("This is a voicenote")
+            return
+        case .ANNOTATION_NOTE:
+            print("This is a annotationnote")
+            return
+            
         }
+    }
+    
+    func editStepNode() {
+        menuButton.isHidden = true
+        if isMenuVisible {
+            toggleMenuHelper()
+        }
+        showStepMenu()
+    }
+
+    func doneEditingStep() {
+        isStepMenuVisible = false
+        DispatchQueue.main.async {
+            self.stepMenuNode.removeFromParentNode()
+            self.stepMenuNode = nil
+        }
+        menuButton.isHidden = false
     }
     
     func cancelTaskflowChanges() {
@@ -93,29 +130,75 @@ extension TaskflowCreatorViewController {
         for step in steps {
             step.name = "Step \(index)"
             let stepNode = step.node.childNodes.first!
-            for child in  stepNode.childNodes {
-                if child.geometry is SCNText {
-                    (child.geometry! as! SCNText).string = step.name
-                }
-            }
+            updateApparence(ofStepNode: stepNode, toColor: ((index - 1) == currentStep) ? getSecondaryColor() : getMainColor(), withText: step.name)
             index += 1
         }
     }
 
-    func nextStep() {
+    func nextStep(fromButton: Bool = false) {
         print("nextStep")
+
+        if steps.isEmpty {
+            DispatchQueue.main.async {
+                self.currentStepLabel.text = ""
+            }
+            return
+        }
+        
+        let previousStep = currentStep
         currentStep = currentStep == steps.count - 1 ? currentStep : currentStep + 1
+        let nextStep = currentStep
+        
+        if fromButton {
+            if previousStep != nextStep {
+                updateApparence(ofStepNode: steps[previousStep].node.childNodes.first!, toColor: getMainColor(), withText: steps[previousStep].name)
+                updateApparence(ofStepNode: steps[nextStep].node.childNodes.first!, toColor: getSecondaryColor(), withText: steps[nextStep].name)
+            }
+        }
+
         DispatchQueue.main.async {
             self.currentStepLabel.text = "Step \(self.currentStep + 1)"
         }
     }
     
-    func previousStep() {
+    func updateApparence(ofStepNode: SCNNode, toColor: UIColor, withText: String) {
+        for child in  ofStepNode.childNodes {
+            if child.geometry is SCNText {
+                (child.geometry! as! SCNText).string = withText
+                let maxX = child.boundingBox.max.x
+                let minX = child.boundingBox.min.x
+                child.pivot = SCNMatrix4MakeTranslation((maxX - minX) / 2, 0, 0);
+            } else if child.geometry is SCNSphere {
+                (child.geometry! as! SCNSphere).firstMaterial?.diffuse.contents = toColor
+            }
+        }
+    }
+    
+    func previousStep(fromButton: Bool = false) {
         print("previousStep")
+        if steps.isEmpty {
+            DispatchQueue.main.async {
+                self.currentStepLabel.text = ""
+            }
+            return
+        }
+
+        let previousStep = currentStep
         currentStep = currentStep == 0 ? 0 : currentStep - 1
+        let nextStep = currentStep
+        
+        if fromButton {
+            if previousStep != nextStep {
+                updateApparence(ofStepNode: steps[previousStep].node.childNodes.first!, toColor: getMainColor(), withText: steps[previousStep].name)
+                updateApparence(ofStepNode: steps[nextStep].node.childNodes.first!, toColor: getSecondaryColor(), withText: steps[nextStep].name)
+            }
+        }
+        
+        
         DispatchQueue.main.async {
             self.currentStepLabel.text = "Step \(self.currentStep + 1)"
         }
+
     }
     
     //TODO: Need to delete the taskflow itself when in editing mode

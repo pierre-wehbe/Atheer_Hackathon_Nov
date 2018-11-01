@@ -15,6 +15,13 @@ enum CursorTarget: String {
     case DELETE_TASKFLOW = "Delete Taskfloww"
     case STEP_NODE = "Step Node"
     
+    // Step Creator
+    case VOICE_NOTE = "Voice Node"
+    case VIDEO_NOTE = "Video Node"
+    case PHOTO_NOTE = "Photo Node"
+    case ANNOTATION_NOTE = "Annotation Node"
+    case DONE_NOTE = "Done Note"
+    
 }
 
 func getCursorTargetFromNode(node: SCNNode) -> CursorTarget {
@@ -38,8 +45,23 @@ func getCursorTargetFromNode(node: SCNNode) -> CursorTarget {
             return CursorTarget.SAVE_TASKFLOW
         case CursorTarget.DELETE_TASKFLOW.rawValue:
             return CursorTarget.DELETE_TASKFLOW
+            
+        case CursorTarget.STEP_NODE.rawValue:
+            return CursorTarget.STEP_NODE
+            
+        case CursorTarget.VIDEO_NOTE.rawValue:
+            return CursorTarget.VIDEO_NOTE
+        case CursorTarget.VOICE_NOTE.rawValue:
+            return CursorTarget.VOICE_NOTE
+        case CursorTarget.ANNOTATION_NOTE.rawValue:
+            return CursorTarget.ANNOTATION_NOTE
+        case CursorTarget.PHOTO_NOTE.rawValue:
+            return CursorTarget.PHOTO_NOTE
+        case CursorTarget.DONE_NOTE.rawValue:
+            return CursorTarget.DONE_NOTE
+
         default:
-            break
+            CursorTarget.none
         }
     }
     return CursorTarget.none

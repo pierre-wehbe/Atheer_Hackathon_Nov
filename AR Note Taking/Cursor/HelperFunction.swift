@@ -10,6 +10,10 @@ func getMainColor() -> UIColor {
     return UIColor(red: 38 / 255, green: 135 / 255, blue: 134 / 255, alpha: 1)
 }
 
+func getSecondaryColor() -> UIColor {
+    return UIColor(red: 235 / 255, green: 204 / 255, blue: 123 / 255, alpha: 1.0)
+}
+
 func convertNodesToTarget(nodes: [SCNNode]) {
     for node in nodes {
         node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)

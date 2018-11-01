@@ -19,7 +19,10 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     var lastTimerInterval = TimeInterval()
     
     var menuNode: SCNNode!
+    var stepMenuNode: SCNNode!
+    
     var isMenuVisible = false
+    var isStepMenuVisible = false
 
     var currentTarget: CursorTarget = .none
 
@@ -31,6 +34,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     
     // Menu Buttons
     var menuButtonNodes: [SCNNode] = []
+    var stepMenuButtons: [SCNNode] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,11 +116,34 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         isMenuVisible = !isMenuVisible
     }
     
+    func showStepMenu() {
+        let frame = sceneView.session.currentFrame!
+        var toModify = SCNMatrix4(frame.camera.transform)
+        let distance: Float = 1
+        toModify.m41 -= toModify.m31*distance
+        toModify.m42 -= toModify.m32*distance
+        toModify.m43 -= toModify.m33*distance
+        
+        stepMenuNode = SCNNode()
+        stepMenuNode.setWorldTransform(toModify)
+        
+        let step = steps[currentStep]
+        stepMenuButtons = generateMenu(withButtons: self.getStepsEditorMenuButtons(hasRecord: step.hasVoice(), hasVideo: step.hasVideo(), hasAnnotation: step.hasAnnotation(), hasPhoto: step.hasPhoto()))
+
+        DispatchQueue.main.async {
+            for buttonNode in self.stepMenuButtons {
+                self.stepMenuNode.addChildNode(buttonNode)
+            }
+            self.sceneView.scene.rootNode.addChildNode(self.stepMenuNode)
+        }
+        isStepMenuVisible = true
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resetTrackingConfiguration()
     }
-    
+
     func resetTrackingConfiguration() {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal]

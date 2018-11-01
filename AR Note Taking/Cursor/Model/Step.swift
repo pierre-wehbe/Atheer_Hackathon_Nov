@@ -14,6 +14,12 @@ class Step: NSObject, NSCoding {
     private var _name: String = ""
     
     private var _node: SCNNode!
+    
+    //MARK: Note
+    private var _videoUrl: String = ""
+    private var _photoUrl: String = ""
+    private var _voiceUrl: String = ""
+    private var _annotationUrl: String = ""
 
     //Constructor
     init(uuid: String, node: SCNNode) {
@@ -59,6 +65,23 @@ class Step: NSObject, NSCoding {
             _name = newValue
         }
     }
+    
+    func hasVideo() -> Bool {
+        return !_videoUrl.isEmpty
+    }
+    
+    func hasVoice() -> Bool {
+        return !_voiceUrl.isEmpty
+    }
+
+    func hasPhoto() -> Bool {
+        return !_photoUrl.isEmpty
+    }
+
+    func hasAnnotation() -> Bool {
+        return !_annotationUrl.isEmpty
+    }
+
     
     public func printInfo() {
         print("UUID: \(_uuid)")
