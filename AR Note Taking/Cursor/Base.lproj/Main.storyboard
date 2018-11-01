@@ -242,15 +242,27 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mtD-B0-Rdm">
+                                <rect key="frame" x="87.666666666666686" y="44" width="200" height="0.0"/>
+                                <color key="backgroundColor" red="0.2229633033" green="0.50583744050000001" blue="0.50196427109999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="gVV-GO-r3M"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="plS-c7-W7p" firstAttribute="top" secondItem="SL8-rl-33c" secondAttribute="bottom" constant="30" id="7p3-wf-1z0"/>
+                            <constraint firstItem="mtD-B0-Rdm" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="9PE-WU-aoc"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
                             <constraint firstItem="SL8-rl-33c" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="20" id="OtR-4i-cbw"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="XyZ-9z-H8e"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="plS-c7-W7p" secondAttribute="bottom" constant="50" id="a3a-FH-U95"/>
+                            <constraint firstItem="mtD-B0-Rdm" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" id="aXp-JG-0nW"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="SL8-rl-33c" secondAttribute="trailing" constant="20" id="oR6-wc-7cz"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
                             <constraint firstItem="plS-c7-W7p" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="uJ1-aD-rOg"/>
@@ -258,6 +270,7 @@
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
+                        <outlet property="currentStepLabel" destination="mtD-B0-Rdm" id="H3H-qz-HhJ"/>
                         <outlet property="instructionLabel" destination="SL8-rl-33c" id="SkJ-Ju-vG0"/>
                         <outlet property="menuButton" destination="plS-c7-W7p" id="z5X-dv-MR8"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>

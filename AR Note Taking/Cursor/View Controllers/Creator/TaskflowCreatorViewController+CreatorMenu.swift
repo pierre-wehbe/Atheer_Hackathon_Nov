@@ -46,20 +46,18 @@ extension TaskflowCreatorViewController {
     
     func createNewStep() {
         print("createNewStep")
+        toggleMenuHelper() // hide menu
         isCreatingStep = true
-        toggleMenu(self)
-        menuButton.titleLabel?.text = "Done"
-        cursorView = cursorViewManager.addStepNode
+        menuButton.titleLabel?.text = "Done" // change title
     }
 
     func addNewStep(newStep: Step) {
         if currentStep == steps.count - 1 {
             steps.append(newStep)
-            currentStep += 1
         } else {
             steps.insert(newStep, at: currentStep)
         }
-        renameSteps()
+        nextStep()
     }
     
     func deleteCurrentStep() {
@@ -69,16 +67,22 @@ extension TaskflowCreatorViewController {
             return
         }
         
+        // Remove step anchor
+        sceneView.session.remove(anchor: sceneView.anchor(for: steps[currentStep].node)!)
+        
         //If deleted last step
         if currentStep == steps.count - 1 {
             steps.remove(at: currentStep)
-            currentStep -= 1
+            previousStep()
         } else {
             steps.remove(at: currentStep)
         }
         
-        if steps.isEmpty {
+        if steps.isEmpty { // Nothing to rename
             currentStep = 0
+            DispatchQueue.main.async {
+                self.currentStepLabel.text = ""
+            }
             return
         }
         renameSteps()
@@ -88,6 +92,12 @@ extension TaskflowCreatorViewController {
         var index = 1
         for step in steps {
             step.name = "Step \(index)"
+            let stepNode = step.node.childNodes.first!
+            for child in  stepNode.childNodes {
+                if child.geometry is SCNText {
+                    (child.geometry! as! SCNText).string = step.name
+                }
+            }
             index += 1
         }
     }
@@ -95,11 +105,17 @@ extension TaskflowCreatorViewController {
     func nextStep() {
         print("nextStep")
         currentStep = currentStep == steps.count - 1 ? currentStep : currentStep + 1
+        DispatchQueue.main.async {
+            self.currentStepLabel.text = "Step \(self.currentStep + 1)"
+        }
     }
     
     func previousStep() {
         print("previousStep")
         currentStep = currentStep == 0 ? 0 : currentStep - 1
+        DispatchQueue.main.async {
+            self.currentStepLabel.text = "Step \(self.currentStep + 1)"
+        }
     }
     
     //TODO: Need to delete the taskflow itself when in editing mode
@@ -183,7 +199,6 @@ extension TaskflowCreatorViewController {
     }
     
     func generateMenu(withButtons: [[MenuButton]]) -> [SCNNode] {
-        
         // Should be given in columns
         var results: [SCNNode] = []
         
@@ -205,14 +220,38 @@ extension TaskflowCreatorViewController {
             colIndex += 1
         }
         
-        //        let button11 = SCNPlane(width: 0.2, height: 0.2)
-        //        button11.firstMaterial?.locksAmbientWithDiffuse = true
-        //        button11.firstMaterial?.diffuse.contents = UIImage(named: "pierre")?.rotated(byDegrees: -90)
-        //        let button11Node = SCNNode(geometry: button11)
-        //        button11Node.name = "Button 11"
-        
         convertNodesToTarget(nodes: results)
+//        results.append(createInstructionNode())
+    
         return results
-        
     }
+    
+//    func createInstructionNode() -> SCNNode {
+//        let buttonGeo = SCNPlane(width: 0.1, height: 0.42)
+//        buttonGeo.firstMaterial?.locksAmbientWithDiffuse = true
+//
+//
+//        let layer = CALayer()
+//        layer.frame = CGRect(x: 0, y: 0, width: 14, height: 100)
+//        layer.backgroundColor = getMainColor().cgColor
+//
+//        var textLayer = CATextLayer()
+//        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI_2)));
+//        textLayer.frame = layer.bounds
+//        textLayer.fontSize = 12
+//        textLayer.string = "Step 1"
+//        textLayer.alignmentMode = CATextLayerAlignmentMode.center
+//        textLayer.foregroundColor = UIColor.white.cgColor
+//
+//        layer.addSublayer(textLayer)
+//
+//        buttonGeo.firstMaterial?.diffuse.contents = layer
+//
+//
+//        let buttonNode = SCNNode(geometry: buttonGeo)
+//        buttonNode.name = "Instruction"
+//        buttonNode.position.x -= Float(0.2)
+//        buttonNode.position.y += Float(0.11)
+//        return buttonNode
+//    }
 }

@@ -27,7 +27,7 @@ struct CursorView {
         addStepNode.backgroundColor = .clear
         addStepNode.layer.cornerRadius = ON_TARGET_WIDTH/2.0
         addStepNode.layer.masksToBounds = true
-        addStepNode.layer.borderColor = UIColor.orange.cgColor
+        addStepNode.layer.borderColor = getMainColor().cgColor
         addStepNode.layer.borderWidth = CGFloat(0.5).toPoint(unit: .mm)
     }
     

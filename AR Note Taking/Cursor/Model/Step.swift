@@ -13,10 +13,13 @@ class Step: NSObject, NSCoding {
     private var _uuid: String = ""
     private var _name: String = ""
     
+    private var _node: SCNNode!
+
     //Constructor
-    init(uuid: String) {
+    init(uuid: String, node: SCNNode) {
         self._uuid = uuid
         self._name = ""
+        self._node = node
     }
 
     //Coder Functions
@@ -34,11 +37,17 @@ class Step: NSObject, NSCoding {
         aCoder.encode(_uuid, forKey: Keys.UUID)
         aCoder.encode(_name, forKey: Keys.NAME)
     }
-    
+
     //Getters and Setters
     var uuid: String {
         get {
             return _uuid
+        }
+    }
+    
+    var node: SCNNode {
+        get {
+            return _node
         }
     }
     

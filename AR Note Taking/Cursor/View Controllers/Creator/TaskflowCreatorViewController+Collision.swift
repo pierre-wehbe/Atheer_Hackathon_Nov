@@ -6,8 +6,6 @@ import UIKit
 extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
 
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        let nodeA = contact.nodeA
-        let nodeB = contact.nodeB
         shouldUpdate = !isOnTarget ? true : false
         isOnTarget = true
         updateCursor(withNode: contact.nodeB)

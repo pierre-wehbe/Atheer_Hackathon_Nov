@@ -7,6 +7,8 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var currentStepLabel: UILabel!
+    
     
     var isOnTarget = false
     var shouldUpdate = true
@@ -72,11 +74,15 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     @IBAction func toggleMenu(_ sender: Any) {
         if menuButton.titleLabel?.text == "Done" {
             menuButton.titleLabel?.text = "Menu"
-            toggleMenu(sender)
+            isMenuVisible = false
             isCreatingStep = false
             return
         }
 
+       toggleMenuHelper()
+    }
+    
+    func toggleMenuHelper() {
         if isMenuVisible {
             cursorView = cursorViewManager.offTarget
             DispatchQueue.main.async {
@@ -96,7 +102,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         
         menuNode = SCNNode()
         menuNode.setWorldTransform(toModify)
-
+        
         DispatchQueue.main.async {
             for buttonNode in self.menuButtonNodes {
                 self.menuNode.addChildNode(buttonNode)
@@ -189,13 +195,13 @@ extension TaskflowCreatorViewController {
     // ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard !(anchor is ARPlaneAnchor) else { return }
-        print("anchor \(anchor.identifier.uuidString)")
-        addNewStep(newStep: Step(uuid: anchor.identifier.uuidString))
+        addNewStep(newStep: Step(uuid: anchor.identifier.uuidString, node: node))
         let stepNode = generateStepNode()
         stepNode.constraints = [SCNBillboardConstraint()] // So that the node always faces the user
 
         DispatchQueue.main.async {
             node.addChildNode(stepNode)
+            self.renameSteps()
         }
     }
 }
