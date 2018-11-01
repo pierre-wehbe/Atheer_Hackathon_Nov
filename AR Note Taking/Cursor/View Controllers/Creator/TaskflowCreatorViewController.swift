@@ -1,6 +1,7 @@
 import UIKit
 import SceneKit
 import ARKit
+import Vision
 
 class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
@@ -35,6 +36,10 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     // Menu Buttons
     var menuButtonNodes: [SCNNode] = []
     var stepMenuButtons: [SCNNode] = []
+    
+    // ML
+    let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml") // A Serial Queue
+    var visionRequests = [VNRequest]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +73,19 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         
         // Generate Buttons
         menuButtonNodes = generateMenu(withButtons: getMainMenuButtons())
+        
+        // Machine Learning - Handtracking
+        guard let selectedModel = try? VNCoreMLModel(for: example_5s0_hand_model().model) else {
+            fatalError("Could not load model. Ensure model has been drag and dropped (copied) to XCode Project. Also ensure the model is part of a target (see: https://stackoverflow.com/questions/45884085/model-is-not-part-of-any-target-add-the-model-to-a-target-to-enable-generation ")
+        }
+        
+        // Set up Vision-CoreML Request
+        let classificationRequest = VNCoreMLRequest(model: selectedModel, completionHandler: classificationCompleteHandler)
+        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop // Crop from centre of images and scale to appropriate size.
+        visionRequests = [classificationRequest]
+        
+        // Begin Loop to Update CoreML
+        loopCoreMLUpdate()
     }
     
     func configureLighting() {
@@ -144,13 +162,13 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
             step.node.isHidden = true
         }
     }
-    
+
     func showAllSteps() {
         for step in steps {
             step.node.isHidden = false
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resetTrackingConfiguration()

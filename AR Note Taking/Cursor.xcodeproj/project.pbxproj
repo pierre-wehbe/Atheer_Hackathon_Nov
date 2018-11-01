@@ -32,6 +32,8 @@
 		8FBEED43218A70A800F66CAD /* TaskflowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED42218A70A800F66CAD /* TaskflowCell.swift */; };
 		8FBEED45218A742000F66CAD /* CollisionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED44218A742000F66CAD /* CollisionCategory.swift */; };
 		8FBEED47218B8E0D00F66CAD /* TaskflowCreatorViewController+StepCreatorMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED46218B8E0D00F66CAD /* TaskflowCreatorViewController+StepCreatorMenu.swift */; };
+		8FBEED49218BA4C500F66CAD /* example_5s0_hand_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED48218BA4C500F66CAD /* example_5s0_hand_model.mlmodel */; };
+		8FBEED4B218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED4A218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		8FBEED42218A70A800F66CAD /* TaskflowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskflowCell.swift; sourceTree = "<group>"; };
 		8FBEED44218A742000F66CAD /* CollisionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionCategory.swift; sourceTree = "<group>"; };
 		8FBEED46218B8E0D00F66CAD /* TaskflowCreatorViewController+StepCreatorMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+StepCreatorMenu.swift"; sourceTree = "<group>"; };
+		8FBEED48218BA4C500F66CAD /* example_5s0_hand_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = example_5s0_hand_model.mlmodel; sourceTree = "<group>"; };
+		8FBEED4A218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+ML.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,7 @@
 				8FBEED2F218A313400F66CAD /* Model */,
 				8FBEED24218A2A4800F66CAD /* View Controllers */,
 				8F9F64E821781C8200F6E005 /* AppDelegate.swift */,
+				8FBEED48218BA4C500F66CAD /* example_5s0_hand_model.mlmodel */,
 				8F9F64EA21781C8200F6E005 /* art.scnassets */,
 				8F93BEC8217B9CA1002435CB /* HelperFunction.swift */,
 				8F9F64EE21781C8200F6E005 /* Main.storyboard */,
@@ -183,6 +188,7 @@
 				8FBEED2D218A2C1900F66CAD /* TaskflowCreatorViewController+Collision.swift */,
 				8FBEED34218A3D8600F66CAD /* TaskflowCreatorViewController+CreatorMenu.swift */,
 				8FBEED46218B8E0D00F66CAD /* TaskflowCreatorViewController+StepCreatorMenu.swift */,
+				8FBEED4A218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift */,
 			);
 			path = Creator;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 			files = (
 				8FBEED37218A486800F66CAD /* Taskflow.swift in Sources */,
 				8FBEED31218A314600F66CAD /* CursorTarget.swift in Sources */,
+				8FBEED4B218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift in Sources */,
 				8F9F64E921781C8200F6E005 /* AppDelegate.swift in Sources */,
 				8FBEED33218A335C00F66CAD /* MenuButton.swift in Sources */,
 				8FBEED2E218A2C1900F66CAD /* TaskflowCreatorViewController+Collision.swift in Sources */,
@@ -354,6 +361,7 @@
 				8FBEED47218B8E0D00F66CAD /* TaskflowCreatorViewController+StepCreatorMenu.swift in Sources */,
 				8FBEED45218A742000F66CAD /* CollisionCategory.swift in Sources */,
 				8F1E24F6217D319E004A59C7 /* RealScale.swift in Sources */,
+				8FBEED49218BA4C500F66CAD /* example_5s0_hand_model.mlmodel in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
 				8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */,
 				8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */,
