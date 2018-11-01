@@ -2,6 +2,7 @@ import UIKit
 import SceneKit
 import ARKit
 import Vision
+import AVKit
 
 class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
@@ -20,8 +21,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     var cursorView: UIView!
     var lastTimerInterval = TimeInterval()
     
-    var menuNode: SCNNode!
-    var stepMenuNode: SCNNode!
+    
     
     var isMenuVisible = false
     var isStepMenuVisible = false
@@ -35,8 +35,13 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     var currentStep: Int = 0
     
     // Menu Buttons
+    var menuNode: SCNNode!
+    var stepMenuNode: SCNNode!
+    var voiceMenuNode: SCNNode!
+    
     var menuButtonNodes: [SCNNode] = []
     var stepMenuButtons: [SCNNode] = []
+    var voiceRecordingMenuButtons: [SCNNode] = []
     
     // ML
     let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml") // A Serial Queue
@@ -55,6 +60,10 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     // Note Photo
     var timer = Timer()
     var seconds = 3
+    
+    // Note Audio
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +97,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         
         // Generate Buttons
         menuButtonNodes = generateMenu(withButtons: getMainMenuButtons())
+        voiceRecordingMenuButtons = generateMenu(withButtons: getVoiceRecorderMenuButtons(recording: false))
         
         // Machine Learning - Handtracking
         guard let selectedModel = try? VNCoreMLModel(for: example_5s0_hand_model().model) else {

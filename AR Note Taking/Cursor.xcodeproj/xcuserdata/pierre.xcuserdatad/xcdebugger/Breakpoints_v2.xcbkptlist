@@ -106,12 +106,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController+CreatorMenu.swift"
-            timestampString = "562803681.685365"
+            timestampString = "562806419.5167201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "addNewStep(newStep:)"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "TaskflowCreatorViewController"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController.swift"
+            timestampString = "562806419.5168231"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
+            landmarkName = "didReceiveTapGesture(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,13 +138,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController.swift"
-            timestampString = "562803681.685856"
+            timestampString = "562806419.516904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "renderer(_:didAdd:for:)"
-            landmarkType = "7">
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "TaskflowCreatorViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,13 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController.swift"
-            timestampString = "562803681.68626"
+            timestampString = "562806419.516982"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
-            landmarkName = "renderer(_:didAdd:for:)"
-            landmarkType = "7">
+            startingLineNumber = "288"
+            endingLineNumber = "288"
+            landmarkName = "TaskflowCreatorViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -153,13 +169,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController.swift"
-            timestampString = "562803681.686607"
+            filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController+CreatorMenu.swift"
+            timestampString = "562806419.517058"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "renderer(_:didAdd:for:)"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "photoModeOn()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,12 +186,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController+CreatorMenu.swift"
-            timestampString = "562803681.686945"
+            timestampString = "562806419.517114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "voiceModeOn()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController+Audio.swift"
+            timestampString = "562806419.517171"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "69"
             endingLineNumber = "69"
-            landmarkName = "editStepNode()"
+            landmarkName = "finishVoiceRecording()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -185,13 +217,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController+CreatorMenu.swift"
-            timestampString = "562803681.687232"
+            filePath = "Cursor/View Controllers/Creator/TaskflowCreatorViewController+Audio.swift"
+            timestampString = "562806419.517778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "doneEditingStep()"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "startVoiceRecoding()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

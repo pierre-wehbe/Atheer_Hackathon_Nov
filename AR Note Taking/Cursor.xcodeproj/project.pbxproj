@@ -35,6 +35,7 @@
 		8FBEED49218BA4C500F66CAD /* example_5s0_hand_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED48218BA4C500F66CAD /* example_5s0_hand_model.mlmodel */; };
 		8FBEED4B218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED4A218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift */; };
 		8FBEED4D218BA7D100F66CAD /* TaskflowCreatorViewController+PhotoNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED4C218BA7D100F66CAD /* TaskflowCreatorViewController+PhotoNote.swift */; };
+		8FBEED4F218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED4E218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		8FBEED48218BA4C500F66CAD /* example_5s0_hand_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = example_5s0_hand_model.mlmodel; sourceTree = "<group>"; };
 		8FBEED4A218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+ML.swift"; sourceTree = "<group>"; };
 		8FBEED4C218BA7D100F66CAD /* TaskflowCreatorViewController+PhotoNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+PhotoNote.swift"; sourceTree = "<group>"; };
+		8FBEED4E218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+Audio.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		8F9F64E721781C8200F6E005 /* Cursor */ = {
 			isa = PBXGroup;
 			children = (
+				8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */,
 				8FBEED2F218A313400F66CAD /* Model */,
 				8FBEED24218A2A4800F66CAD /* View Controllers */,
 				8F9F64E821781C8200F6E005 /* AppDelegate.swift */,
@@ -150,7 +153,6 @@
 				8F9F64F321781C8300F6E005 /* LaunchScreen.storyboard */,
 				8F9F64F621781C8300F6E005 /* Info.plist */,
 				8F1E24F5217D319E004A59C7 /* RealScale.swift */,
-				8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */,
 			);
 			path = Cursor;
 			sourceTree = "<group>";
@@ -192,6 +194,7 @@
 				8FBEED46218B8E0D00F66CAD /* TaskflowCreatorViewController+StepCreatorMenu.swift */,
 				8FBEED4A218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift */,
 				8FBEED4C218BA7D100F66CAD /* TaskflowCreatorViewController+PhotoNote.swift */,
+				8FBEED4E218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift */,
 			);
 			path = Creator;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				8FBEED49218BA4C500F66CAD /* example_5s0_hand_model.mlmodel in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
 				8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */,
+				8FBEED4F218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift in Sources */,
 				8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */,
 				8FBEED43218A70A800F66CAD /* TaskflowCell.swift in Sources */,
 				8FBEED3D218A505300F66CAD /* CursorView.swift in Sources */,

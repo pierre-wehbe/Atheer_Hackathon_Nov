@@ -51,11 +51,18 @@ extension TaskflowCreatorViewController {
             return
         case .VOICE_NOTE:
             print("This is a voicenote")
+            voiceModeOn()
             return
         case .ANNOTATION_NOTE:
             print("This is a annotationnote")
             return
-            
+
+        case .VOICE_DONE_RECORDING:
+            finishVoiceRecording()
+            return
+        case .VOICE_RECORDING:
+            startVoiceRecoding()
+            return
         }
     }
     
@@ -64,6 +71,24 @@ extension TaskflowCreatorViewController {
         noteTaking = .photo
     }
     
+    func voiceModeOn() {
+        stepMenuNode.isHidden = true
+        noteTaking = .voice
+        voiceMenuNode = SCNNode()
+        let frame = sceneView.session.currentFrame!
+        var toModify = SCNMatrix4(frame.camera.transform)
+        let distance: Float = 1
+        toModify.m41 -= toModify.m31*distance
+        toModify.m42 -= toModify.m32*distance
+        toModify.m43 -= toModify.m33*distance
+        voiceMenuNode.setWorldTransform(toModify)
+        DispatchQueue.main.async {
+            for buttonNode in self.voiceRecordingMenuButtons {
+                self.voiceMenuNode.addChildNode(buttonNode)
+            }
+            self.sceneView.scene.rootNode.addChildNode(self.voiceMenuNode)
+        }
+    }
 
     //TODO: Need to be slow, or instantiate once and then just update the pictures, else might crash
     func editStepNode() {
@@ -81,6 +106,7 @@ extension TaskflowCreatorViewController {
         }
         isStepMenuVisible = false
         showAllSteps()
+        
         self.stepMenuNode.removeFromParentNode()
         self.stepMenuNode = nil
 
