@@ -9,6 +9,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var currentStepLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
     
     
     var isOnTarget = false
@@ -40,6 +41,20 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     // ML
     let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml") // A Serial Queue
     var visionRequests = [VNRequest]()
+    
+    // Note taking Status
+    enum NoteTaking {
+        case none
+        case photo
+        case video
+        case annotation
+        case voice
+    }
+    var noteTaking: NoteTaking = .none
+    
+    // Note Photo
+    var timer = Timer()
+    var seconds = 3
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +101,8 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         
         // Begin Loop to Update CoreML
         loopCoreMLUpdate()
+        timerLabel.isHidden = true
+        timer.invalidate()
     }
     
     func configureLighting() {

@@ -66,6 +66,34 @@ class Step: NSObject, NSCoding {
         }
     }
     
+    // Notes
+    var photoUrl: String {
+        get {
+            return _photoUrl
+        }
+        set {
+            _photoUrl = newValue
+        }
+    }
+    
+    var videoUrl: String {
+        get {
+            return _videoUrl
+        }
+        set {
+            _videoUrl = newValue
+        }
+    }
+    
+    var voiceUrl: String {
+        get {
+            return _voiceUrl
+        }
+        set {
+            _voiceUrl = newValue
+        }
+    }
+    
     func hasVideo() -> Bool {
         return !_videoUrl.isEmpty
     }

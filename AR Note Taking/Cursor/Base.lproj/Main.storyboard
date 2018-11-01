@@ -252,11 +252,22 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKt-Qf-40x">
+                                <rect key="frame" x="137.66666666666666" y="356" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="QkM-fP-Agz"/>
+                                    <constraint firstAttribute="height" constant="100" id="ZiY-sM-wE2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="0.0071415957063436508" green="0.5147741436958313" blue="0.50701785087585449" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="plS-c7-W7p" firstAttribute="top" secondItem="SL8-rl-33c" secondAttribute="bottom" constant="30" id="7p3-wf-1z0"/>
                             <constraint firstItem="mtD-B0-Rdm" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="9PE-WU-aoc"/>
+                            <constraint firstItem="lKt-Qf-40x" firstAttribute="centerY" secondItem="U0K-SW-4ec" secondAttribute="centerY" id="Cer-8z-OP8"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="GsS-dJ-CKf"/>
                             <constraint firstItem="SL8-rl-33c" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" constant="20" id="OtR-4i-cbw"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="bottom" secondItem="fQZ-KI-GVf" secondAttribute="bottom" id="VpT-BR-CcM"/>
@@ -265,15 +276,17 @@
                             <constraint firstItem="mtD-B0-Rdm" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" id="aXp-JG-0nW"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="SL8-rl-33c" secondAttribute="trailing" constant="20" id="oR6-wc-7cz"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="rJc-2c-zQA"/>
+                            <constraint firstItem="lKt-Qf-40x" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="tM9-vJ-SSd"/>
                             <constraint firstItem="plS-c7-W7p" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="uJ1-aD-rOg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
-                        <outlet property="currentStepLabel" destination="mtD-B0-Rdm" id="H3H-qz-HhJ"/>
+                        <outlet property="currentStepLabel" destination="mtD-B0-Rdm" id="7Pe-4R-BSD"/>
                         <outlet property="instructionLabel" destination="SL8-rl-33c" id="SkJ-Ju-vG0"/>
                         <outlet property="menuButton" destination="plS-c7-W7p" id="z5X-dv-MR8"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="timerLabel" destination="lKt-Qf-40x" id="eQ9-o9-VQE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

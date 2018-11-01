@@ -38,13 +38,13 @@ extension TaskflowCreatorViewController {
             editStepNode()
             return
             
-            
         case .DONE_NOTE:
             print("Done Taking Note")
             doneEditingStep()
             return
         case .PHOTO_NOTE:
             print("This is a photonote")
+            photoModeOn()
             return
         case .VIDEO_NOTE:
             print("This is a videonote")
@@ -59,6 +59,13 @@ extension TaskflowCreatorViewController {
         }
     }
     
+    func photoModeOn() {
+        stepMenuNode.isHidden = true
+        noteTaking = .photo
+    }
+    
+
+    //TODO: Need to be slow, or instantiate once and then just update the pictures, else might crash
     func editStepNode() {
         menuButton.isHidden = true
         hideAllSteps()
@@ -69,12 +76,14 @@ extension TaskflowCreatorViewController {
     }
 
     func doneEditingStep() {
+        if stepMenuNode == nil {
+            return
+        }
         isStepMenuVisible = false
         showAllSteps()
-        DispatchQueue.main.async {
-            self.stepMenuNode.removeFromParentNode()
-            self.stepMenuNode = nil
-        }
+        self.stepMenuNode.removeFromParentNode()
+        self.stepMenuNode = nil
+
         menuButton.isHidden = false
     }
     

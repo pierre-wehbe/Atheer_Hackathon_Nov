@@ -78,6 +78,13 @@ extension TaskflowCreatorViewController {
             } else if symbol == "👊" {
 //                print("Fist Detected")
             } else {
+                if self.noteTaking == .photo {
+                    if self.timer.isValid {
+//                        print("Timer already running")
+                    } else {
+                        self.resetTimer()
+                    }
+                }
 //                print("Open Hand Detected")
             }
 //            self.textOverlay.text = symbol
