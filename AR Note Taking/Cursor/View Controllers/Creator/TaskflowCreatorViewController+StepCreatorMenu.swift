@@ -10,7 +10,7 @@ extension TaskflowCreatorViewController {
         var col1: [MenuButton] = []
         var col2: [MenuButton] = []
 
-        col0.append(MenuButton(name: .DONE_NOTE, image: UIImage(named: hasRecord ? "voiceNote" : "voiceNoteAdd")?.rotated(byDegrees: -90)))
+        col0.append(MenuButton(name: .DONE_NOTE, image: UIImage(named: "cancel")?.rotated(byDegrees: -90)))
         
         col1.append(MenuButton(name: .VOICE_NOTE, image: UIImage(named: hasRecord ? "voiceNote" : "voiceNoteAdd")?.rotated(byDegrees: -90)))
         col1.append(MenuButton(name: .VIDEO_NOTE, image: UIImage(named: hasVideo ? "videoNote" : "videoNoteAdd")?.rotated(byDegrees: -90)))
@@ -18,7 +18,7 @@ extension TaskflowCreatorViewController {
         col2.append(MenuButton(name: .PHOTO_NOTE, image: UIImage(named: hasPhoto ? "photoNote" : "photoNoteAdd")?.rotated(byDegrees: -90)))
         col2.append(MenuButton(name: .ANNOTATION_NOTE, image: UIImage(named: hasAnnotation ? "noteTaking" : "noteTakingAdd")?.rotated(byDegrees: -90)))
         
-        return [col1, col2]
+        return [col0, col1, col2]
     }
 
 }

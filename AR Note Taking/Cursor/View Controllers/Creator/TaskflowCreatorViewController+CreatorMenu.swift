@@ -61,6 +61,7 @@ extension TaskflowCreatorViewController {
     
     func editStepNode() {
         menuButton.isHidden = true
+        hideAllSteps()
         if isMenuVisible {
             toggleMenuHelper()
         }
@@ -69,6 +70,7 @@ extension TaskflowCreatorViewController {
 
     func doneEditingStep() {
         isStepMenuVisible = false
+        showAllSteps()
         DispatchQueue.main.async {
             self.stepMenuNode.removeFromParentNode()
             self.stepMenuNode = nil

@@ -139,6 +139,18 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         isStepMenuVisible = true
     }
     
+    func hideAllSteps() {
+        for step in steps {
+            step.node.isHidden = true
+        }
+    }
+    
+    func showAllSteps() {
+        for step in steps {
+            step.node.isHidden = false
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resetTrackingConfiguration()
@@ -197,7 +209,6 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         
     }
 }
-
 
 // Adding anchors
 extension TaskflowCreatorViewController {
