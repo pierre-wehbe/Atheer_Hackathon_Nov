@@ -3,6 +3,8 @@ import SceneKit
 import ARKit
 import Vision
 import AVKit
+import ARVideoKit
+
 
 class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate {
     
@@ -38,10 +40,12 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     var menuNode: SCNNode!
     var stepMenuNode: SCNNode!
     var voiceMenuNode: SCNNode!
+    var videoMenuNode: SCNNode!
     
     var menuButtonNodes: [SCNNode] = []
     var stepMenuButtons: [SCNNode] = []
     var voiceRecordingMenuButtons: [SCNNode] = []
+    var videoRecordingMenuButtons: [SCNNode] = []
     
     // ML
     let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml") // A Serial Queue
@@ -64,6 +68,11 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     // Note Audio
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
+    
+    // Note Video
+    let recordingQueue = DispatchQueue(label: "recordingThread", attributes: .concurrent)
+    var videoRecorder: RecordAR?
+    var isRecordingVideo = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,6 +107,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         // Generate Buttons
         menuButtonNodes = generateMenu(withButtons: getMainMenuButtons())
         voiceRecordingMenuButtons = generateMenu(withButtons: getVoiceRecorderMenuButtons(recording: false))
+        videoRecordingMenuButtons = generateMenu(withButtons: getVideoRecorderMenuButtons(recording: false))
         
         // Machine Learning - Handtracking
         guard let selectedModel = try? VNCoreMLModel(for: example_5s0_hand_model().model) else {
@@ -113,6 +123,31 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         loopCoreMLUpdate()
         timerLabel.isHidden = true
         timer.invalidate()
+        
+        // Initialize ARVideoKit recorder
+        videoRecorder = RecordAR(ARSceneKit: sceneView)
+        
+        /*----👇---- ARVideoKit Configuration ----👇----*/
+        
+        // Set the recorder's delegate
+        videoRecorder?.delegate = self
+        
+        // Set the renderer's delegate
+        videoRecorder?.renderAR = self
+        
+        // Configure the renderer to perform additional image & video processing 👁
+        videoRecorder?.onlyRenderWhileRecording = false
+        
+        // Configure ARKit content mode. Default is .auto
+        videoRecorder?.contentMode = .aspectFill
+        
+        //record or photo add environment light rendering, Default is false
+        videoRecorder?.enableAdjustEnvironmentLighting = true
+        
+        // Set the UIViewController orientations
+        videoRecorder?.inputViewOrientations = [.landscapeLeft, .landscapeRight, .portrait]
+        // Configure RecordAR to store media files in local app directory
+        videoRecorder?.deleteCacheWhenExported = false
     }
     
     func configureLighting() {
@@ -198,7 +233,11 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        resetTrackingConfiguration()
+//        resetTrackingConfiguration()
+        
+        sceneView.session.run(ARWorldTrackingConfiguration())
+        // Prepare the recorder with sessions configuration
+        videoRecorder?.prepare(ARWorldTrackingConfiguration())
     }
 
     func resetTrackingConfiguration() {
@@ -238,6 +277,16 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         
         // Pause the view's session
         sceneView.session.pause()
+        
+        // AR Video
+        if videoRecorder?.status == .recording {
+            videoRecorder?.stopAndExport()
+        }
+        videoRecorder?.onlyRenderWhileRecording = true
+        videoRecorder?.prepare(ARWorldTrackingConfiguration())
+        
+        // Switch off the orientation lock for UIViewControllers with AR Scenes
+        videoRecorder?.rest()
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

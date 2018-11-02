@@ -67,6 +67,7 @@ extension TaskflowCreatorViewController: AVAudioRecorderDelegate {
             for menuButton in voiceRecordingMenuButtons {
                 if menuButton.name == CursorTarget.VOICE_DONE_RECORDING.rawValue {
                     menuButton.geometry!.firstMaterial?.diffuse.contents = UIImage(named: "voiceNote")?.rotated(byDegrees: -90)
+                    menuButton.name = CursorTarget.VOICE_RECORDING.rawValue
                 }
             }
         }

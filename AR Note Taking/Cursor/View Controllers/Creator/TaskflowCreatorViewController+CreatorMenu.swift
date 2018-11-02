@@ -48,6 +48,7 @@ extension TaskflowCreatorViewController {
             return
         case .VIDEO_NOTE:
             print("This is a videonote")
+            videoModeOn()
             return
         case .VOICE_NOTE:
             print("This is a voicenote")
@@ -63,6 +64,13 @@ extension TaskflowCreatorViewController {
         case .VOICE_RECORDING:
             startVoiceRecoding()
             return
+                
+        case .VIDEO_RECORDING:
+            startVideoRecoding()
+            return
+        case .VIDEO_DONE_RECORDING:
+            finishVideoRecording()
+            return
         }
     }
     
@@ -71,6 +79,25 @@ extension TaskflowCreatorViewController {
         noteTaking = .photo
     }
     
+    func videoModeOn() {
+        stepMenuNode.isHidden = true
+        noteTaking = .video
+        videoMenuNode = SCNNode()
+        let frame = sceneView.session.currentFrame!
+        var toModify = SCNMatrix4(frame.camera.transform)
+        let distance: Float = 1
+        toModify.m41 -= toModify.m31*distance
+        toModify.m42 -= toModify.m32*distance
+        toModify.m43 -= toModify.m33*distance
+        videoMenuNode.setWorldTransform(toModify)
+        DispatchQueue.main.async {
+            for buttonNode in self.videoRecordingMenuButtons {
+                self.videoMenuNode.addChildNode(buttonNode)
+            }
+            self.sceneView.scene.rootNode.addChildNode(self.videoMenuNode)
+        }
+    }
+
     func voiceModeOn() {
         stepMenuNode.isHidden = true
         noteTaking = .voice
