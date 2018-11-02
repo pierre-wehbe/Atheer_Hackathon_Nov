@@ -19,7 +19,9 @@ class Step: NSObject, NSCoding {
     private var _videoUrl: String = ""
     private var _photoUrl: String = ""
     private var _voiceUrl: String = ""
-    private var _annotationUrl: String = ""
+    private var _annotationPoints: [(String, SCNVector3)] = []
+    
+    private var _annotationNodes: [SCNNode] = []
 
     //Constructor
     init(uuid: String, node: SCNNode) {
@@ -85,6 +87,24 @@ class Step: NSObject, NSCoding {
         }
     }
     
+    var annotationPoints: [(String, SCNVector3)] {
+        get {
+            return _annotationPoints
+        }
+        set {
+            _annotationPoints = newValue
+        }
+    }
+    
+    var annotationNodes: [SCNNode] {
+        get {
+            return _annotationNodes
+        }
+        set {
+            _annotationNodes = newValue
+        }
+    }
+    
     var voiceUrl: String {
         get {
             return _voiceUrl
@@ -107,7 +127,7 @@ class Step: NSObject, NSCoding {
     }
 
     func hasAnnotation() -> Bool {
-        return !_annotationUrl.isEmpty
+        return !_annotationPoints.isEmpty
     }
 
     

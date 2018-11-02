@@ -73,6 +73,9 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     let recordingQueue = DispatchQueue(label: "recordingThread", attributes: .concurrent)
     var videoRecorder: RecordAR?
     var isRecordingVideo = false
+    
+    // Note Annotation
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,6 +159,16 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     }
     
     @IBAction func toggleMenu(_ sender: Any) {
+        if noteTaking == .annotation {
+            let location = cursorView.center
+            
+            guard let hitTestResult = sceneView.hitTest(location, types: [.featurePoint, .estimatedHorizontalPlane]).first
+                else { return }
+            let stepAnchor = ARAnchor(transform: hitTestResult.worldTransform)
+            sceneView.session.add(anchor: stepAnchor)
+            return
+        }
+        
         if menuButton.titleLabel?.text == "Done" {
             menuButton.titleLabel?.text = "Menu"
             isMenuVisible = false
@@ -327,13 +340,44 @@ extension TaskflowCreatorViewController {
     // ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard !(anchor is ARPlaneAnchor) else { return }
-        addNewStep(newStep: Step(uuid: anchor.identifier.uuidString, node: node))
-        let stepNode = generateStepNode()
-        stepNode.constraints = [SCNBillboardConstraint()] // So that the node always faces the user
-
-        DispatchQueue.main.async {
-            node.addChildNode(stepNode)
-            self.renameSteps()
+        if noteTaking == .annotation {
+            let sphere = SCNSphere(radius: 0.002)
+            sphere.firstMaterial?.diffuse.contents = getMainColor()
+            let annotationNode = SCNNode(geometry: sphere)
+            annotationNode.name = CursorTarget.ANNOTATION_NODE.rawValue
+            steps[currentStep].annotationNodes.append(annotationNode)
+            convertNodesToTarget(nodes: [annotationNode])
+            DispatchQueue.main.async {
+                node.addChildNode(annotationNode)
+            }
+            
+            let anchorPosition = anchor.transform.columns.3
+            let currentPoint = SCNVector3(anchorPosition.x, anchorPosition.y, anchorPosition.z)
+            if steps[currentStep].annotationPoints.isEmpty {
+                steps[currentStep].annotationPoints.append((anchor.identifier.uuidString, currentPoint))
+                return
+            } else {
+                let twoPointsNode = SCNNode()
+                _ = twoPointsNode.buildLineInTwoPointsWithRotation(
+                    from: steps[currentStep].annotationPoints.last!.1,
+                    to: currentPoint,
+                    radius: 0.002,
+                    color: getMainColor())
+                steps[currentStep].annotationNodes.append(twoPointsNode)
+                DispatchQueue.main.async {
+                    self.sceneView.scene.rootNode.addChildNode(twoPointsNode)
+                }
+            }
+            steps[currentStep].annotationPoints.append((anchor.identifier.uuidString, currentPoint))
+        } else {
+            addNewStep(newStep: Step(uuid: anchor.identifier.uuidString, node: node))
+            let stepNode = generateStepNode()
+            stepNode.constraints = [SCNBillboardConstraint()] // So that the node always faces the user
+            
+            DispatchQueue.main.async {
+                node.addChildNode(stepNode)
+                self.renameSteps()
+            }
         }
     }
 }

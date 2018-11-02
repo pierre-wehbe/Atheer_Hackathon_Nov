@@ -23,9 +23,8 @@ class TaskflowListViewController: UIViewController {
         
         print("Memory Count: \(FilesManager.shared.taskflows.count)")
         FilesManager.shared.printTaskflows()
-
     }
-    
+
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == TASKFLOW_VIEWER_SEGUE {

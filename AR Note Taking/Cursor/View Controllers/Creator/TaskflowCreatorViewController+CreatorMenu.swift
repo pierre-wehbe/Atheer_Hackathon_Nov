@@ -56,6 +56,7 @@ extension TaskflowCreatorViewController {
             return
         case .ANNOTATION_NOTE:
             print("This is a annotationnote")
+            annotationModeOn()
             return
 
         case .VOICE_DONE_RECORDING:
@@ -71,49 +72,10 @@ extension TaskflowCreatorViewController {
         case .VIDEO_DONE_RECORDING:
             finishVideoRecording()
             return
-        }
-    }
-    
-    func photoModeOn() {
-        stepMenuNode.isHidden = true
-        noteTaking = .photo
-    }
-    
-    func videoModeOn() {
-        stepMenuNode.isHidden = true
-        noteTaking = .video
-        videoMenuNode = SCNNode()
-        let frame = sceneView.session.currentFrame!
-        var toModify = SCNMatrix4(frame.camera.transform)
-        let distance: Float = 1
-        toModify.m41 -= toModify.m31*distance
-        toModify.m42 -= toModify.m32*distance
-        toModify.m43 -= toModify.m33*distance
-        videoMenuNode.setWorldTransform(toModify)
-        DispatchQueue.main.async {
-            for buttonNode in self.videoRecordingMenuButtons {
-                self.videoMenuNode.addChildNode(buttonNode)
-            }
-            self.sceneView.scene.rootNode.addChildNode(self.videoMenuNode)
-        }
-    }
-
-    func voiceModeOn() {
-        stepMenuNode.isHidden = true
-        noteTaking = .voice
-        voiceMenuNode = SCNNode()
-        let frame = sceneView.session.currentFrame!
-        var toModify = SCNMatrix4(frame.camera.transform)
-        let distance: Float = 1
-        toModify.m41 -= toModify.m31*distance
-        toModify.m42 -= toModify.m32*distance
-        toModify.m43 -= toModify.m33*distance
-        voiceMenuNode.setWorldTransform(toModify)
-        DispatchQueue.main.async {
-            for buttonNode in self.voiceRecordingMenuButtons {
-                self.voiceMenuNode.addChildNode(buttonNode)
-            }
-            self.sceneView.scene.rootNode.addChildNode(self.voiceMenuNode)
+            
+        case .ANNOTATION_NODE:
+            doneAnnotating()
+            return
         }
     }
 

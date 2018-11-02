@@ -41,6 +41,9 @@
 		8FBEED51218BC1AE00F66CAD /* TaskflowCreatorViewController+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEED50218BC1AE00F66CAD /* TaskflowCreatorViewController+Video.swift */; };
 		8FBEED75218BCC4F00F66CAD /* ARVideoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBEED74218BCC4600F66CAD /* ARVideoKit.framework */; };
 		8FBEED76218BCC4F00F66CAD /* ARVideoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBEED74218BCC4600F66CAD /* ARVideoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8FBEEDA4218CCD0A00F66CAD /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDA2218CCD0A00F66CAD /* SCNVector3+Extensions.swift */; };
+		8FBEEDA5218CCD0A00F66CAD /* SCNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDA3218CCD0A00F66CAD /* SCNode+Extensions.swift */; };
+		8FBEEDA9218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDA8218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift */; };
 		975C8DE82ABD2E191AF998A0 /* Pods_Cursor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6482376E50E6DD10F254F3BD /* Pods_Cursor.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +134,9 @@
 		8FBEED4E218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+Audio.swift"; sourceTree = "<group>"; };
 		8FBEED50218BC1AE00F66CAD /* TaskflowCreatorViewController+Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+Video.swift"; sourceTree = "<group>"; };
 		8FBEED6F218BCC4600F66CAD /* ARVideoKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ARVideoKit.xcodeproj; path = "../../../../../../../Downloads/ARVideoKit-swift_4_2-3/ARVideoKit.xcodeproj"; sourceTree = "<group>"; };
+		8FBEEDA2218CCD0A00F66CAD /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
+		8FBEEDA3218CCD0A00F66CAD /* SCNode+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNode+Extensions.swift"; sourceTree = "<group>"; };
+		8FBEEDA8218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+Annotation.swift"; sourceTree = "<group>"; };
 		9F52E22EB23A0DFFF6C59288 /* Pods-CursorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CursorTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CursorTests/Pods-CursorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA5CF8C8C7B066A4F2B07165 /* Pods-Cursor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cursor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cursor/Pods-Cursor.debug.xcconfig"; sourceTree = "<group>"; };
 		D31F0E29FC13959850B98453 /* Pods_CursorUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CursorUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */,
+				8FBEEDA1218CCD0A00F66CAD /* Extensions */,
 				8FBEED2F218A313400F66CAD /* Model */,
 				8FBEED24218A2A4800F66CAD /* View Controllers */,
 				8F9F64E821781C8200F6E005 /* AppDelegate.swift */,
@@ -258,6 +265,7 @@
 				8FBEED4C218BA7D100F66CAD /* TaskflowCreatorViewController+PhotoNote.swift */,
 				8FBEED4E218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift */,
 				8FBEED50218BC1AE00F66CAD /* TaskflowCreatorViewController+Video.swift */,
+				8FBEEDA8218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift */,
 			);
 			path = Creator;
 			sourceTree = "<group>";
@@ -292,6 +300,15 @@
 				8FBEED74218BCC4600F66CAD /* ARVideoKit.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8FBEEDA1218CCD0A00F66CAD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8FBEEDA2218CCD0A00F66CAD /* SCNVector3+Extensions.swift */,
+				8FBEEDA3218CCD0A00F66CAD /* SCNode+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		DF7BB23D493EF6B134002014 /* Pods */ = {
@@ -522,6 +539,7 @@
 				8FBEED31218A314600F66CAD /* CursorTarget.swift in Sources */,
 				8FBEED4B218BA55C00F66CAD /* TaskflowCreatorViewController+ML.swift in Sources */,
 				8F9F64E921781C8200F6E005 /* AppDelegate.swift in Sources */,
+				8FBEEDA5218CCD0A00F66CAD /* SCNode+Extensions.swift in Sources */,
 				8FBEED33218A335C00F66CAD /* MenuButton.swift in Sources */,
 				8FBEED2E218A2C1900F66CAD /* TaskflowCreatorViewController+Collision.swift in Sources */,
 				8FBEED28218A2B7B00F66CAD /* TaskflowViewerViewController.swift in Sources */,
@@ -532,10 +550,12 @@
 				8F1E24F6217D319E004A59C7 /* RealScale.swift in Sources */,
 				8FBEED49218BA4C500F66CAD /* example_5s0_hand_model.mlmodel in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
+				8FBEEDA9218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift in Sources */,
 				8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */,
 				8FBEED4F218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift in Sources */,
 				8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */,
 				8FBEED43218A70A800F66CAD /* TaskflowCell.swift in Sources */,
+				8FBEEDA4218CCD0A00F66CAD /* SCNVector3+Extensions.swift in Sources */,
 				8FBEED3D218A505300F66CAD /* CursorView.swift in Sources */,
 				8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */,
 				8FBEED4D218BA7D100F66CAD /* TaskflowCreatorViewController+PhotoNote.swift in Sources */,

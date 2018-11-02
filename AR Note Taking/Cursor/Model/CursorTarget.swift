@@ -16,10 +16,10 @@ enum CursorTarget: String {
     case STEP_NODE = "Step Node"
     
     // Step Creator
-    case VOICE_NOTE = "Voice Node"
-    case VIDEO_NOTE = "Video Node"
-    case PHOTO_NOTE = "Photo Node"
-    case ANNOTATION_NOTE = "Annotation Node"
+    case VOICE_NOTE = "Voice Note"
+    case VIDEO_NOTE = "Video Note"
+    case PHOTO_NOTE = "Photo Note"
+    case ANNOTATION_NOTE = "Annotation Note"
     case DONE_NOTE = "Done Note"
     
     // Audio Note
@@ -29,6 +29,9 @@ enum CursorTarget: String {
     // Video Note
     case VIDEO_RECORDING = "Record Video"
     case VIDEO_DONE_RECORDING = "Stop Record Video"
+    
+    // Note Taking
+    case ANNOTATION_NODE = "Annotation Node"
 }
 
 func getCursorTargetFromNode(node: SCNNode) -> CursorTarget {
@@ -76,6 +79,9 @@ func getCursorTargetFromNode(node: SCNNode) -> CursorTarget {
             return CursorTarget.VIDEO_RECORDING
         case CursorTarget.VIDEO_DONE_RECORDING.rawValue:
             return CursorTarget.VIDEO_DONE_RECORDING
+            
+        case CursorTarget.ANNOTATION_NODE.rawValue:
+            return CursorTarget.ANNOTATION_NODE
 
         default:
             CursorTarget.none

@@ -4,6 +4,12 @@ import ARKit
 import Vision
 
 extension TaskflowCreatorViewController {
+    
+    func photoModeOn() {
+        stepMenuNode.isHidden = true
+        noteTaking = .photo
+    }
+    
     func runTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
     }

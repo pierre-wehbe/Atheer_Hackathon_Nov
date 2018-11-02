@@ -6,6 +6,25 @@ import ARVideoKit
 
 extension TaskflowCreatorViewController: RenderARDelegate, RecordARDelegate {
     
+    func videoModeOn() {
+        stepMenuNode.isHidden = true
+        noteTaking = .video
+        videoMenuNode = SCNNode()
+        let frame = sceneView.session.currentFrame!
+        var toModify = SCNMatrix4(frame.camera.transform)
+        let distance: Float = 1
+        toModify.m41 -= toModify.m31*distance
+        toModify.m42 -= toModify.m32*distance
+        toModify.m43 -= toModify.m33*distance
+        videoMenuNode.setWorldTransform(toModify)
+        DispatchQueue.main.async {
+            for buttonNode in self.videoRecordingMenuButtons {
+                self.videoMenuNode.addChildNode(buttonNode)
+            }
+            self.sceneView.scene.rootNode.addChildNode(self.videoMenuNode)
+        }
+    }
+    
     func getVideoRecorderMenuButtons(recording: Bool) -> [[MenuButton]]{
         setupAudio()
         var col0: [MenuButton] = []
@@ -30,7 +49,7 @@ extension TaskflowCreatorViewController: RenderARDelegate, RecordARDelegate {
                 }
             }
         }
-        
+
         for menuButton in videoRecordingMenuButtons {
             if menuButton.name == CursorTarget.VIDEO_RECORDING.rawValue {
                 menuButton.geometry!.firstMaterial?.diffuse.contents = UIImage(named: "stopRecording")?.rotated(byDegrees: -90)

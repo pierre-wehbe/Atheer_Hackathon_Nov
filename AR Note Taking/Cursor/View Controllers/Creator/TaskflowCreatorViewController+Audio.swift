@@ -5,6 +5,25 @@ import AVKit
 
 extension TaskflowCreatorViewController: AVAudioRecorderDelegate {
     
+    func voiceModeOn() {
+        stepMenuNode.isHidden = true
+        noteTaking = .voice
+        voiceMenuNode = SCNNode()
+        let frame = sceneView.session.currentFrame!
+        var toModify = SCNMatrix4(frame.camera.transform)
+        let distance: Float = 1
+        toModify.m41 -= toModify.m31*distance
+        toModify.m42 -= toModify.m32*distance
+        toModify.m43 -= toModify.m33*distance
+        voiceMenuNode.setWorldTransform(toModify)
+        DispatchQueue.main.async {
+            for buttonNode in self.voiceRecordingMenuButtons {
+                self.voiceMenuNode.addChildNode(buttonNode)
+            }
+            self.sceneView.scene.rootNode.addChildNode(self.voiceMenuNode)
+        }
+    }
+    
     func getVoiceRecorderMenuButtons(recording: Bool) -> [[MenuButton]]{
         setupAudio()
         var col0: [MenuButton] = []
