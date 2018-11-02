@@ -23,8 +23,12 @@ extension TaskflowViewerViewController {
             return
         case .STEP_NODE:
             print("This is a step")
+            viewStep()
             return
             
+        case .DONE_NOTE:
+            exitStepViewer()
+            return
         case .PHOTO_NOTE:
             print("This is a photonote")
             return
@@ -40,6 +44,61 @@ extension TaskflowViewerViewController {
             
         default:
             return
+        }
+    }
+    
+    func exitStepViewer() {
+        if stepMenuNode == nil {
+            return
+        }
+        showAllsteps()
+        
+        self.stepMenuNode.removeFromParentNode()
+        self.stepMenuNode = nil
+        
+        menuButton.isHidden = false
+    }
+    
+    func viewStep() {
+        hideAllsteps()
+        menuButton.isHidden = true
+        if isMenuVisible {
+            toggleMenuHelper()
+        }
+        showStepMenu()
+    }
+    
+    func showStepMenu() {
+        let frame = sceneView.session.currentFrame!
+        var toModify = SCNMatrix4(frame.camera.transform)
+        let distance: Float = 1
+        toModify.m41 -= toModify.m31*distance
+        toModify.m42 -= toModify.m32*distance
+        toModify.m43 -= toModify.m33*distance
+        
+        stepMenuNode = SCNNode()
+        stepMenuNode.setWorldTransform(toModify)
+        
+        let step = steps[currentStep]
+        stepMenuButtons = generateMenu(withButtons: getStepsEditorMenuButtons(hasRecord: step.hasVoice(), hasVideo: step.hasVideo(), hasAnnotation: step.hasAnnotation(), hasPhoto: step.hasPhoto()))
+        
+        DispatchQueue.main.async {
+            for buttonNode in self.stepMenuButtons {
+                self.stepMenuNode.addChildNode(buttonNode)
+            }
+            self.sceneView.scene.rootNode.addChildNode(self.stepMenuNode)
+        }
+    }
+    
+    func hideAllsteps() {
+        for step in steps {
+            step.node.isHidden = true
+        }
+    }
+    
+    func showAllsteps() {
+        for step in steps {
+            step.node.isHidden = false
         }
     }
 
@@ -142,7 +201,7 @@ extension TaskflowViewerViewController {
             self.showAlertView(worldMap: worldMap)
         }
     }
-    
+
     func showAlertView(worldMap: ARWorldMap) {
         //Creating UIAlertController and
         //Setting title and message for the alert dialog

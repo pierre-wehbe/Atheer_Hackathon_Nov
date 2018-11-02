@@ -218,7 +218,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
         stepMenuNode.setWorldTransform(toModify)
         
         let step = steps[currentStep]
-        stepMenuButtons = generateMenu(withButtons: self.getStepsEditorMenuButtons(hasRecord: step.hasVoice(), hasVideo: step.hasVideo(), hasAnnotation: step.hasAnnotation(), hasPhoto: step.hasPhoto()))
+        stepMenuButtons = generateMenu(withButtons: getStepsEditorMenuButtons(hasRecord: step.hasVoice(), hasVideo: step.hasVideo(), hasAnnotation: step.hasAnnotation(), hasPhoto: step.hasPhoto()))
 
         DispatchQueue.main.async {
             for buttonNode in self.stepMenuButtons {
@@ -243,9 +243,8 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        resetTrackingConfiguration()
+        resetTrackingConfiguration()
         
-        sceneView.session.run(ARWorldTrackingConfiguration())
         // Prepare the recorder with sessions configuration
         videoRecorder?.prepare(ARWorldTrackingConfiguration())
     }

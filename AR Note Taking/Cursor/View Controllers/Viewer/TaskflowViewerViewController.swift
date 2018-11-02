@@ -116,7 +116,7 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
         }
     }
     
-    @IBAction func toggleMenu(_ sender: Any) {
+    func toggleMenuHelper() {
         if isMenuVisible {
             cursorView = cursorViewManager.offTarget
             DispatchQueue.main.async {
@@ -144,6 +144,9 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
             self.sceneView.scene.rootNode.addChildNode(self.menuNode)
         }
         isMenuVisible = !isMenuVisible
+    }
+    @IBAction func toggleMenu(_ sender: Any) {
+        toggleMenuHelper()
     }
     
 }

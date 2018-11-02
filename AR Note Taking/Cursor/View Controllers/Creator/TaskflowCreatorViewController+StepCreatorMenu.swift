@@ -3,8 +3,6 @@ import Foundation
 import SceneKit
 import UIKit
 
-extension TaskflowCreatorViewController {
-
     func getStepsEditorMenuButtons(hasRecord: Bool, hasVideo: Bool, hasAnnotation: Bool, hasPhoto: Bool) -> [[MenuButton]]{
         var col0: [MenuButton] = []
         var col1: [MenuButton] = []
@@ -20,5 +18,3 @@ extension TaskflowCreatorViewController {
         
         return [col0, col1, col2]
     }
-
-}
