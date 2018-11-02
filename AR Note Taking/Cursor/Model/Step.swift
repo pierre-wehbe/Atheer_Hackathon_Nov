@@ -7,6 +7,12 @@ class Step: NSObject, NSCoding {
         static let UUID = "uuid"
         static let NAME = "name"
         static let RESSOURCES = "ressources"
+        
+        //NOTE
+        static let VIDEO_URL = "video"
+        static let AUDIO_URL = "audio"
+        static let PHOTO_URL = "photo"
+        static let ANNO = "annotation"
     }
     
     //MARK: Attributes
@@ -39,11 +45,32 @@ class Step: NSObject, NSCoding {
         if let nameObject = aDecoder.decodeObject(forKey: Keys.NAME) as? String {
             _name = nameObject
         }
+        
+        if let videoObject = aDecoder.decodeObject(forKey: Keys.VIDEO_URL) as? String {
+            _videoUrl = videoObject
+        }
+        
+        if let photoObject = aDecoder.decodeObject(forKey: Keys.PHOTO_URL) as? String {
+            _photoUrl = photoObject
+        }
+        
+        if let audioObject = aDecoder.decodeObject(forKey: Keys.AUDIO_URL) as? String {
+            _voiceUrl = audioObject
+        }
+        
+        if let annotationObject = aDecoder.decodeObject(forKey: Keys.ANNO) as? [(String, SCNVector3)] {
+            _annotationPoints = annotationObject
+        }
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(_uuid, forKey: Keys.UUID)
         aCoder.encode(_name, forKey: Keys.NAME)
+        
+        aCoder.encode(_videoUrl, forKey: Keys.VIDEO_URL)
+        aCoder.encode(_voiceUrl, forKey: Keys.AUDIO_URL)
+        aCoder.encode(_photoUrl, forKey: Keys.PHOTO_URL)
+        aCoder.encode(_annotationPoints, forKey: Keys.ANNO)
     }
 
     //Getters and Setters
