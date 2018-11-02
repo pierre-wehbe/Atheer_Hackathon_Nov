@@ -29,6 +29,10 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
     var cursorViewManager: CursorView!
     var cursorView: UIView!
     var currentTarget: CursorTarget = .none
+    
+    //Step Viewer
+    var isAudioPlaying = false
+    var audioPlayer: AVAudioPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -2,8 +2,9 @@ import ARKit
 import Foundation
 import SceneKit
 import UIKit
+import AVKit
 
-extension TaskflowViewerViewController {
+extension TaskflowViewerViewController: AVAudioPlayerDelegate {
     func handleCurrentTargetTapped() {
         switch currentTarget {
         case .none:
@@ -37,6 +38,11 @@ extension TaskflowViewerViewController {
             return
         case .VOICE_NOTE:
             print("This is a voicenote")
+            if steps[currentStep].hasVoice() {
+                if !isAudioPlaying {
+                    playAudio()
+                }
+            }
             return
         case .ANNOTATION_NOTE:
             print("This is a annotationnote")
@@ -47,7 +53,26 @@ extension TaskflowViewerViewController {
         }
     }
     
+    func playAudio() {
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: steps[currentStep].voiceUrl))
+            audioPlayer?.delegate = self
+            audioPlayer?.play()
+            isAudioPlaying = true
+        } catch {
+            print("Error Playing Audio")
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+         isAudioPlaying = false
+    }
+
     func exitStepViewer() {
+        if isAudioPlaying {
+            audioPlayer?.stop()
+            isAudioPlaying = false
+        }
         if stepMenuNode == nil {
             return
         }
@@ -95,7 +120,7 @@ extension TaskflowViewerViewController {
             step.node.isHidden = true
         }
     }
-    
+
     func showAllsteps() {
         for step in steps {
             step.node.isHidden = false
