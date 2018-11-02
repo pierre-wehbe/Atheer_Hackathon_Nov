@@ -10,7 +10,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet weak var instructionLabel: UILabel!
-    @IBOutlet weak var menuButton: UIButton!
+    @IBOutlet weak var menuButton: UIButton! 
     @IBOutlet weak var currentStepLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
     
@@ -73,9 +73,6 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
     let recordingQueue = DispatchQueue(label: "recordingThread", attributes: .concurrent)
     var videoRecorder: RecordAR?
     var isRecordingVideo = false
-    
-    // Note Annotation
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -168,7 +165,7 @@ class TaskflowCreatorViewController: UIViewController, ARSCNViewDelegate, ARSess
             sceneView.session.add(anchor: stepAnchor)
             return
         }
-        
+
         if menuButton.titleLabel?.text == "Done" {
             menuButton.titleLabel?.text = "Menu"
             isMenuVisible = false
@@ -354,12 +351,12 @@ extension TaskflowCreatorViewController {
             let anchorPosition = anchor.transform.columns.3
             let currentPoint = SCNVector3(anchorPosition.x, anchorPosition.y, anchorPosition.z)
             if steps[currentStep].annotationPoints.isEmpty {
-                steps[currentStep].annotationPoints.append((anchor.identifier.uuidString, currentPoint))
+                steps[currentStep].annotationPoints.append(AnnotationPoint(uuid: anchor.identifier.uuidString, position: currentPoint))
                 return
             } else {
                 let twoPointsNode = SCNNode()
                 _ = twoPointsNode.buildLineInTwoPointsWithRotation(
-                    from: steps[currentStep].annotationPoints.last!.1,
+                    from: steps[currentStep].annotationPoints.last!.position,
                     to: currentPoint,
                     radius: 0.002,
                     color: getMainColor())
@@ -368,7 +365,7 @@ extension TaskflowCreatorViewController {
                     self.sceneView.scene.rootNode.addChildNode(twoPointsNode)
                 }
             }
-            steps[currentStep].annotationPoints.append((anchor.identifier.uuidString, currentPoint))
+            steps[currentStep].annotationPoints.append(AnnotationPoint(uuid: anchor.identifier.uuidString, position: currentPoint))
         } else {
             addNewStep(newStep: Step(uuid: anchor.identifier.uuidString, node: node))
             let stepNode = generateStepNode()

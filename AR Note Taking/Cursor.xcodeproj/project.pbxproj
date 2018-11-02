@@ -44,6 +44,9 @@
 		8FBEEDA4218CCD0A00F66CAD /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDA2218CCD0A00F66CAD /* SCNVector3+Extensions.swift */; };
 		8FBEEDA5218CCD0A00F66CAD /* SCNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDA3218CCD0A00F66CAD /* SCNode+Extensions.swift */; };
 		8FBEEDA9218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDA8218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift */; };
+		8FBEEDAE218CEA8D00F66CAD /* TaskflowViewerViewController+ViewerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDAD218CEA8D00F66CAD /* TaskflowViewerViewController+ViewerMenu.swift */; };
+		8FBEEDB0218CEF0600F66CAD /* TaskflowViewerViewController+Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDAF218CEF0500F66CAD /* TaskflowViewerViewController+Collision.swift */; };
+		8FBEEDB2218CF35800F66CAD /* AnnotationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBEEDB1218CF35800F66CAD /* AnnotationPoint.swift */; };
 		975C8DE82ABD2E191AF998A0 /* Pods_Cursor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6482376E50E6DD10F254F3BD /* Pods_Cursor.framework */; };
 /* End PBXBuildFile section */
 
@@ -137,6 +140,9 @@
 		8FBEEDA2218CCD0A00F66CAD /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		8FBEEDA3218CCD0A00F66CAD /* SCNode+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNode+Extensions.swift"; sourceTree = "<group>"; };
 		8FBEEDA8218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowCreatorViewController+Annotation.swift"; sourceTree = "<group>"; };
+		8FBEEDAD218CEA8D00F66CAD /* TaskflowViewerViewController+ViewerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowViewerViewController+ViewerMenu.swift"; sourceTree = "<group>"; };
+		8FBEEDAF218CEF0500F66CAD /* TaskflowViewerViewController+Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskflowViewerViewController+Collision.swift"; sourceTree = "<group>"; };
+		8FBEEDB1218CF35800F66CAD /* AnnotationPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationPoint.swift; sourceTree = "<group>"; };
 		9F52E22EB23A0DFFF6C59288 /* Pods-CursorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CursorTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CursorTests/Pods-CursorTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA5CF8C8C7B066A4F2B07165 /* Pods-Cursor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cursor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cursor/Pods-Cursor.debug.xcconfig"; sourceTree = "<group>"; };
 		D31F0E29FC13959850B98453 /* Pods_CursorUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CursorUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,19 +215,18 @@
 		8F9F64E721781C8200F6E005 /* Cursor */ = {
 			isa = PBXGroup;
 			children = (
-				8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */,
+				8F9F64E821781C8200F6E005 /* AppDelegate.swift */,
+				8FBEEDAB218CE83800F66CAD /* Utilities */,
+				8FBEEDAA218CE81500F66CAD /* Managers */,
 				8FBEEDA1218CCD0A00F66CAD /* Extensions */,
 				8FBEED2F218A313400F66CAD /* Model */,
 				8FBEED24218A2A4800F66CAD /* View Controllers */,
-				8F9F64E821781C8200F6E005 /* AppDelegate.swift */,
 				8FBEED48218BA4C500F66CAD /* example_5s0_hand_model.mlmodel */,
-				8F9F64EA21781C8200F6E005 /* art.scnassets */,
-				8F93BEC8217B9CA1002435CB /* HelperFunction.swift */,
 				8F9F64EE21781C8200F6E005 /* Main.storyboard */,
-				8F9F64F121781C8300F6E005 /* Assets.xcassets */,
 				8F9F64F321781C8300F6E005 /* LaunchScreen.storyboard */,
+				8F9F64F121781C8300F6E005 /* Assets.xcassets */,
+				8F9F64EA21781C8200F6E005 /* art.scnassets */,
 				8F9F64F621781C8300F6E005 /* Info.plist */,
-				8F1E24F5217D319E004A59C7 /* RealScale.swift */,
 			);
 			path = Cursor;
 			sourceTree = "<group>";
@@ -275,6 +280,8 @@
 			children = (
 				8FBEED27218A2B7B00F66CAD /* TaskflowViewerViewController.swift */,
 				8FBEED40218A6F3500F66CAD /* TaskflowListViewController.swift */,
+				8FBEEDAD218CEA8D00F66CAD /* TaskflowViewerViewController+ViewerMenu.swift */,
+				8FBEEDAF218CEF0500F66CAD /* TaskflowViewerViewController+Collision.swift */,
 			);
 			path = Viewer;
 			sourceTree = "<group>";
@@ -286,6 +293,7 @@
 				8FBEED32218A335C00F66CAD /* MenuButton.swift */,
 				8FBEED36218A486800F66CAD /* Taskflow.swift */,
 				8FBEED38218A48DB00F66CAD /* Step.swift */,
+				8FBEEDB1218CF35800F66CAD /* AnnotationPoint.swift */,
 				8FBEED3C218A505300F66CAD /* CursorView.swift */,
 				8FBEED3E218A5AFD00F66CAD /* StepNode.swift */,
 				8FBEED42218A70A800F66CAD /* TaskflowCell.swift */,
@@ -309,6 +317,23 @@
 				8FBEEDA3218CCD0A00F66CAD /* SCNode+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8FBEEDAA218CE81500F66CAD /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8FBEED3A218A4AAF00F66CAD /* FilesManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		8FBEEDAB218CE83800F66CAD /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8F1E24F5217D319E004A59C7 /* RealScale.swift */,
+				8F93BEC8217B9CA1002435CB /* HelperFunction.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		DF7BB23D493EF6B134002014 /* Pods */ = {
@@ -548,15 +573,18 @@
 				8FBEED47218B8E0D00F66CAD /* TaskflowCreatorViewController+StepCreatorMenu.swift in Sources */,
 				8FBEED45218A742000F66CAD /* CollisionCategory.swift in Sources */,
 				8F1E24F6217D319E004A59C7 /* RealScale.swift in Sources */,
+				8FBEEDB0218CEF0600F66CAD /* TaskflowViewerViewController+Collision.swift in Sources */,
 				8FBEED49218BA4C500F66CAD /* example_5s0_hand_model.mlmodel in Sources */,
 				8FBEED2C218A2BD800F66CAD /* TaskflowCreatorViewController+Cursor.swift in Sources */,
 				8FBEEDA9218CDEB200F66CAD /* TaskflowCreatorViewController+Annotation.swift in Sources */,
 				8FBEED41218A6F3500F66CAD /* TaskflowListViewController.swift in Sources */,
+				8FBEEDAE218CEA8D00F66CAD /* TaskflowViewerViewController+ViewerMenu.swift in Sources */,
 				8FBEED4F218BB58500F66CAD /* TaskflowCreatorViewController+Audio.swift in Sources */,
 				8FBEED3F218A5AFD00F66CAD /* StepNode.swift in Sources */,
 				8FBEED43218A70A800F66CAD /* TaskflowCell.swift in Sources */,
 				8FBEEDA4218CCD0A00F66CAD /* SCNVector3+Extensions.swift in Sources */,
 				8FBEED3D218A505300F66CAD /* CursorView.swift in Sources */,
+				8FBEEDB2218CF35800F66CAD /* AnnotationPoint.swift in Sources */,
 				8FBEED3B218A4AAF00F66CAD /* FilesManager.swift in Sources */,
 				8FBEED4D218BA7D100F66CAD /* TaskflowCreatorViewController+PhotoNote.swift in Sources */,
 				8FBEED39218A48DB00F66CAD /* Step.swift in Sources */,

@@ -3,8 +3,8 @@ import Foundation
 import UIKit
 
 // Collision Delegate
-extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
-
+extension TaskflowViewerViewController: SCNPhysicsContactDelegate {
+    
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
         shouldUpdate = !isOnTarget ? true : false
         isOnTarget = true
@@ -16,7 +16,7 @@ extension TaskflowCreatorViewController: SCNPhysicsContactDelegate {
         isOnTarget = true
         updateCursor(withNode: contact.nodeB)
     }
-
+    
     func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
         shouldUpdate = isOnTarget ? true : false
         isOnTarget = false

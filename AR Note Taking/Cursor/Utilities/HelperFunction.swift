@@ -23,6 +23,34 @@ func convertNodesToTarget(nodes: [SCNNode]) {
     }
 }
 
+func generateMenu(withButtons: [[MenuButton]]) -> [SCNNode] {
+    // Should be given in columns
+    var results: [SCNNode] = []
+    
+    var colIndex: Double = 0
+    var rowIndex: Double = 0
+    for col in withButtons {
+        rowIndex = 0
+        for row in col {
+            let buttonGeo = SCNPlane(width: 0.2, height: 0.2)
+            buttonGeo.firstMaterial?.locksAmbientWithDiffuse = true
+            buttonGeo.firstMaterial?.diffuse.contents = row.image == nil ? getMainColor().cgColor : row.image!
+            let buttonNode = SCNNode(geometry: buttonGeo)
+            buttonNode.name = row.name.rawValue
+            buttonNode.position.x += Float(rowIndex * 0.22)
+            buttonNode.position.y += Float(colIndex * 0.22)
+            results.append(buttonNode)
+            rowIndex += 1
+        }
+        colIndex += 1
+    }
+    
+    convertNodesToTarget(nodes: results)
+    //        results.append(createInstructionNode())
+    
+    return results
+}
+
 
 
 extension UIImage {

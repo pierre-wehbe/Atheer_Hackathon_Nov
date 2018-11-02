@@ -19,13 +19,13 @@ class Step: NSObject, NSCoding {
     private var _uuid: String = ""
     private var _name: String = ""
     
-    private var _node: SCNNode!
+    private var _node: SCNNode? = nil
     
     //MARK: Note
     private var _videoUrl: String = ""
     private var _photoUrl: String = ""
     private var _voiceUrl: String = ""
-    private var _annotationPoints: [(String, SCNVector3)] = []
+    private var _annotationPoints: [AnnotationPoint] = []
     
     private var _annotationNodes: [SCNNode] = []
 
@@ -58,11 +58,11 @@ class Step: NSObject, NSCoding {
             _voiceUrl = audioObject
         }
         
-        if let annotationObject = aDecoder.decodeObject(forKey: Keys.ANNO) as? [(String, SCNVector3)] {
+        if let annotationObject = aDecoder.decodeObject(forKey: Keys.ANNO) as? [AnnotationPoint] {
             _annotationPoints = annotationObject
         }
     }
-    
+
     func encode(with aCoder: NSCoder) {
         aCoder.encode(_uuid, forKey: Keys.UUID)
         aCoder.encode(_name, forKey: Keys.NAME)
@@ -79,13 +79,21 @@ class Step: NSObject, NSCoding {
             return _uuid
         }
     }
-    
+
     var node: SCNNode {
         get {
-            return _node
+            if let n = _node {
+                return n
+            } else {
+                return SCNNode()
+            }
+            return SCNNode()
+        }
+        set {
+            _node = newValue
         }
     }
-    
+
     var name: String {
         get {
             return _name
@@ -114,7 +122,7 @@ class Step: NSObject, NSCoding {
         }
     }
     
-    var annotationPoints: [(String, SCNVector3)] {
+    var annotationPoints: [AnnotationPoint] {
         get {
             return _annotationPoints
         }

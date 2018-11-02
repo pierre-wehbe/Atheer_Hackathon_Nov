@@ -3,20 +3,14 @@ import Foundation
 import SceneKit
 import UIKit
 
-extension TaskflowCreatorViewController {
+extension TaskflowViewerViewController {
     func handleCurrentTargetTapped() {
         switch currentTarget {
         case .none:
             print("Off target")
             return
         case .CANCEL_TASKFLOW_EDIT:
-            cancelTaskflowChanges()
-            return
-        case .CREATE_STEP:
-            createNewStep()
-            return
-        case .DELETE_STEP:
-            deleteCurrentStep()
+            dismiss(animated: true, completion: nil)
             return
         case .NEXT_STEP:
             nextStep(fromButton: true)
@@ -24,146 +18,47 @@ extension TaskflowCreatorViewController {
         case .PREV_STEP:
             previousStep(fromButton: true)
             return
-        case .DELETE_TASKFLOW:
-            deleteTaskflow()
-            return
-        case .SAVE_TASKFLOW:
-            saveTaskflow()
-            return
         case .VOICE_COMMAND:
             toggleVoiceCommand()
             return
         case .STEP_NODE:
             print("This is a step")
-            editStepNode()
             return
             
-        case .DONE_NOTE:
-            print("Done Taking Note")
-            doneEditingStep()
-            return
         case .PHOTO_NOTE:
             print("This is a photonote")
-            photoModeOn()
             return
         case .VIDEO_NOTE:
             print("This is a videonote")
-            videoModeOn()
             return
         case .VOICE_NOTE:
             print("This is a voicenote")
-            voiceModeOn()
             return
         case .ANNOTATION_NOTE:
             print("This is a annotationnote")
-            annotationModeOn()
-            return
-
-        case .VOICE_DONE_RECORDING:
-            finishVoiceRecording()
-            return
-        case .VOICE_RECORDING:
-            startVoiceRecoding()
-            return
-                
-        case .VIDEO_RECORDING:
-            startVideoRecoding()
-            return
-        case .VIDEO_DONE_RECORDING:
-            finishVideoRecording()
             return
             
-        case .ANNOTATION_NODE:
-            doneAnnotating()
+        default:
             return
         }
     }
 
-    //TODO: Need to be slow, or instantiate once and then just update the pictures, else might crash
-    func editStepNode() {
-        menuButton.isHidden = true
-        hideAllSteps()
-        if isMenuVisible {
-            toggleMenuHelper()
-        }
-        showStepMenu()
-    }
-
-    func doneEditingStep() {
-        if stepMenuNode == nil {
-            return
-        }
-        isStepMenuVisible = false
-        showAllSteps()
-        
-        self.stepMenuNode.removeFromParentNode()
-        self.stepMenuNode = nil
-
-        menuButton.isHidden = false
-    }
-    
-    func cancelTaskflowChanges() {
-        print("cancelTaskflowChanges")
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func createNewStep() {
-        print("createNewStep")
-        toggleMenuHelper() // hide menu
-        isCreatingStep = true
-        menuButton.titleLabel?.text = "Done" // change title
-    }
-
-    func addNewStep(newStep: Step) {
-        if currentStep == steps.count - 1 {
-            steps.append(newStep)
-        } else {
-            steps.insert(newStep, at: currentStep)
-        }
-        nextStep()
-    }
-    
-    func deleteCurrentStep() {
-        print("deleteCurrentStep")
-        if steps.count == 0 {
-            print("No steps to be deleted")
-            return
-        }
-
-        // Remove step anchor
-        sceneView.session.remove(anchor: sceneView.anchor(for: steps[currentStep].node)!)
-        
-        //If deleted last step
-        if currentStep == steps.count - 1 {
-            steps.remove(at: currentStep)
-            previousStep()
-        } else {
-            steps.remove(at: currentStep)
-        }
-        
-        if steps.isEmpty { // Nothing to rename
-            currentStep = 0
-            DispatchQueue.main.async {
-                self.currentStepLabel.text = ""
-            }
-            return
-        }
-        renameSteps()
-    }
-    
     func renameSteps() {
         var index = 1
         for step in steps {
             step.name = "Step \(index)"
-            let stepNode = step.node.childNodes.first!
-            updateApparence(ofStepNode: stepNode, toColor: ((index - 1) == currentStep) ? getSecondaryColor() : getMainColor(), withText: step.name)
+            if let stepNode = step.node.childNodes.first {
+                updateApparence(ofStepNode: stepNode, toColor: ((index - 1) == currentStep) ? getSecondaryColor() : getMainColor(), withText: step.name)
+            } else {
+                return
+            }
             index += 1
         }
     }
 
     func nextStep(fromButton: Bool = false) {
         print("nextStep")
-
+        
         if steps.isEmpty {
             DispatchQueue.main.async {
                 self.currentStepLabel.text = ""
@@ -181,7 +76,7 @@ extension TaskflowCreatorViewController {
                 updateApparence(ofStepNode: steps[nextStep].node.childNodes.first!, toColor: getSecondaryColor(), withText: steps[nextStep].name)
             }
         }
-
+        
         DispatchQueue.main.async {
             self.currentStepLabel.text = "Step \(self.currentStep + 1)"
         }
@@ -208,7 +103,7 @@ extension TaskflowCreatorViewController {
             }
             return
         }
-
+        
         let previousStep = currentStep
         currentStep = currentStep == 0 ? 0 : currentStep - 1
         let nextStep = currentStep
@@ -224,7 +119,7 @@ extension TaskflowCreatorViewController {
         DispatchQueue.main.async {
             self.currentStepLabel.text = "Step \(self.currentStep + 1)"
         }
-
+        
     }
     
     //TODO: Need to delete the taskflow itself when in editing mode
@@ -297,44 +192,10 @@ extension TaskflowCreatorViewController {
         
         col1.append(MenuButton(name: .CANCEL_TASKFLOW_EDIT, image: UIImage(named: "cancel")?.rotated(byDegrees: -90)))
         col1.append(MenuButton(name: .PREV_STEP, image: UIImage(named: "previous")?.rotated(byDegrees: -90)))
-        col1.append(MenuButton(name: .DELETE_STEP, image: UIImage(named: "deleteStep")?.rotated(byDegrees: -90)))
-        col1.append(MenuButton(name: .SAVE_TASKFLOW, image: UIImage(named: "save")?.rotated(byDegrees: -90)))
+
         col2.append(MenuButton(name: .VOICE_COMMAND, image: UIImage(named: "voiceCommand")?.rotated(byDegrees: -90)))
         col2.append(MenuButton(name: .NEXT_STEP, image: UIImage(named: "next")?.rotated(byDegrees: -90)))
-        col2.append(MenuButton(name: .CREATE_STEP, image: UIImage(named: "createStep")?.rotated(byDegrees: -90)))
-        col2.append(MenuButton(name: .DELETE_TASKFLOW, image: UIImage(named: "delete")?.rotated(byDegrees: -90)))
-        
+
         return [col1, col2]
     }
-    
-
-    
-//    func createInstructionNode() -> SCNNode {
-//        let buttonGeo = SCNPlane(width: 0.1, height: 0.42)
-//        buttonGeo.firstMaterial?.locksAmbientWithDiffuse = true
-//
-//
-//        let layer = CALayer()
-//        layer.frame = CGRect(x: 0, y: 0, width: 14, height: 100)
-//        layer.backgroundColor = getMainColor().cgColor
-//
-//        var textLayer = CATextLayer()
-//        textLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI_2)));
-//        textLayer.frame = layer.bounds
-//        textLayer.fontSize = 12
-//        textLayer.string = "Step 1"
-//        textLayer.alignmentMode = CATextLayerAlignmentMode.center
-//        textLayer.foregroundColor = UIColor.white.cgColor
-//
-//        layer.addSublayer(textLayer)
-//
-//        buttonGeo.firstMaterial?.diffuse.contents = layer
-//
-//
-//        let buttonNode = SCNNode(geometry: buttonGeo)
-//        buttonNode.name = "Instruction"
-//        buttonNode.position.x -= Float(0.2)
-//        buttonNode.position.y += Float(0.11)
-//        return buttonNode
-//    }
 }
