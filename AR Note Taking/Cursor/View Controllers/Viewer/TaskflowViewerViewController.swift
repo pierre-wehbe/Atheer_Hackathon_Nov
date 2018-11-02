@@ -150,6 +150,10 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
         isMenuVisible = !isMenuVisible
     }
     @IBAction func toggleMenu(_ sender: Any) {
+        if menuButton.titleLabel?.text == "Done" {
+            hideAnnotation()
+            return
+        }
         toggleMenuHelper()
     }
     

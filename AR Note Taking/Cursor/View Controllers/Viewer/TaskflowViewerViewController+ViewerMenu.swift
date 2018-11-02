@@ -45,6 +45,9 @@ extension TaskflowViewerViewController: AVAudioPlayerDelegate {
             }
             return
         case .ANNOTATION_NOTE:
+            if steps[currentStep].hasAnnotation() {
+                showAnnotation()
+            }
             print("This is a annotationnote")
             return
             
@@ -52,7 +55,46 @@ extension TaskflowViewerViewController: AVAudioPlayerDelegate {
             return
         }
     }
+
+    func showAnnotation() {
+        menuButton.setTitle("Done", for: .normal)
+        menuButton.isHidden = false
+        stepMenuNode.isHidden = true
+        
+        if steps[currentStep].annotationNodes.isEmpty {
+            let points = steps[currentStep].annotationPoints
+            
+            for i in 0...(points.count-2) {
+                let from = points[i].position
+                let to = points[i+1].position
+                let twoPointsNode = SCNNode()
+                _ = twoPointsNode.buildLineInTwoPointsWithRotation(
+                    from: from,
+                    to: to,
+                    radius: 0.002,
+                    color: getMainColor())
+                steps[currentStep].annotationNodes.append(twoPointsNode)
+                DispatchQueue.main.async {
+                    self.sceneView.scene.rootNode.addChildNode(twoPointsNode)
+                }
+            }
+        } else {
+            for node in steps[currentStep].annotationNodes {
+                node.isHidden = false
+            }
+        }
+    }
     
+    func hideAnnotation() {
+        menuButton.isHidden = true
+        stepMenuNode.isHidden = false
+        menuButton.setTitle("Menu", for: .normal)
+        
+        for node in steps[currentStep].annotationNodes {
+            node.isHidden = true
+        }
+    }
+
     func playAudio() {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: steps[currentStep].voiceUrl))
