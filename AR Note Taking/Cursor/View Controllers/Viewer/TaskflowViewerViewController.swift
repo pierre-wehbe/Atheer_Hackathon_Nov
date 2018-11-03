@@ -89,7 +89,10 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
     func resetTrackingConfiguration(with worldMap: ARWorldMap? = nil) {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal]
-        
+        guard let arImages = ARReferenceImage.referenceImages(inGroupNamed: "mediaViewer", bundle: nil) else {return}
+        configuration.detectionImages = arImages
+        configuration.maximumNumberOfTrackedImages = 1
+
         let options: ARSession.RunOptions = [.resetTracking, .removeExistingAnchors]
         if let worldMap = worldMap {
             configuration.initialWorldMap = worldMap
@@ -169,8 +172,81 @@ extension TaskflowViewerViewController: ARSCNViewDelegate {
     @objc func didReceiveTapGesture(_ sender: UITapGestureRecognizer) {
         handleCurrentTargetTapped()
     }
+    
+    func setupVideoOnNode(_ node: SCNNode, fromURL url: URL){
+        
+        //1. Create An SKVideoNode
+        var videoPlayerNode: SKVideoNode!
+        
+        //2. Create An AVPlayer With Our Video URL
+        let videoPlayer = AVPlayer(url: url)
+        
+        //3. Intialize The Video Node With Our Video Player
+        videoPlayerNode = SKVideoNode(avPlayer: videoPlayer)
+        videoPlayerNode.yScale = -1
+        
+        //4. Create A SpriteKitScene & Postion It
+        let spriteKitScene = SKScene(size: CGSize(width: 600, height: 300))
+        spriteKitScene.scaleMode = .aspectFit
+        videoPlayerNode.position = CGPoint(x: spriteKitScene.size.width/2, y: spriteKitScene.size.height/2)
+        videoPlayerNode.size = spriteKitScene.size
+        spriteKitScene.addChild(videoPlayerNode)
+        
+        //6. Set The Nodes Geoemtry Diffuse Contenets To Our SpriteKit Scene
+        node.geometry?.firstMaterial?.diffuse.contents = spriteKitScene
+        
+        //5. Play The Video
+        videoPlayerNode.play()
+//        videoPlayer.volume = 0
+    }
+    
+    func setUpImageOnNode(_ node: SCNNode, fromURL url: URL) {
+        
+        let image = UIImage(contentsOfFile: url.path)!
+        let texture = SKTexture(image: image)
+        let imageNode =  SKSpriteNode(texture: texture)
+        imageNode.yScale = -1
+
+        let spriteKitScene = SKScene(size: CGSize(width: 600, height: 300))
+        spriteKitScene.scaleMode = .aspectFit
+        imageNode.position = CGPoint(x: spriteKitScene.size.width/2, y: spriteKitScene.size.height/2)
+        imageNode.size = spriteKitScene.size
+        spriteKitScene.addChild(imageNode)
+
+        //6. Set The Nodes Geoemtry Diffuse Contenets To Our SpriteKit Scene
+        node.geometry?.firstMaterial?.diffuse.contents = spriteKitScene
+    }
 
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        
+        // Also detects when we found our image
+        if anchor is ARImageAnchor {
+            print("Found an image")
+            guard let imageAnchor = anchor as? ARImageAnchor else { return }
+            let referenceImage = imageAnchor.referenceImage
+            
+            //2. Get The Physical Width & Height Of Our Reference Image
+            let width = CGFloat(referenceImage.physicalSize.width)
+            let height = CGFloat(referenceImage.physicalSize.height)
+            
+            //3. Create An SCNNode To Hold Our Video Player With The Same Size As The Image Target
+            let videoHolder = SCNNode()
+            let videoHolderGeometry = SCNPlane(width: width, height: height)
+            videoHolder.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
+            videoHolder.geometry = videoHolderGeometry
+            
+            if steps[currentStep].hasVideo() {
+                let videoUrl = URL(fileURLWithPath: steps[currentStep].videoUrl)
+                setupVideoOnNode(videoHolder, fromURL: videoUrl)
+                node.addChildNode(videoHolder)
+            } else if steps[currentStep].hasPhoto() {
+                let photoUrl = URL(fileURLWithPath: steps[currentStep].photoUrl)
+                setUpImageOnNode(videoHolder, fromURL: photoUrl)
+                node.addChildNode(videoHolder)
+            }
+            return
+        }
+        
         guard !(anchor is ARPlaneAnchor) else { return }
         for step in steps { // Does nothing...
             for pointID in step.annotationPoints {
