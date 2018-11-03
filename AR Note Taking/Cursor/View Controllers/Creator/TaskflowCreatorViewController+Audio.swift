@@ -23,7 +23,7 @@ extension TaskflowCreatorViewController: AVAudioRecorderDelegate {
             self.sceneView.scene.rootNode.addChildNode(self.voiceMenuNode)
         }
     }
-    
+
     func getVoiceRecorderMenuButtons(recording: Bool) -> [[MenuButton]]{
         setupAudio()
         var col0: [MenuButton] = []
@@ -100,8 +100,10 @@ extension TaskflowCreatorViewController: AVAudioRecorderDelegate {
     
     //Delegate Function
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        steps[currentStep].voiceUrl = recorder.url.path
+        let path = recorder.url.path
+        let fileName = path.split(separator: "/").last!
+        steps[currentStep].voiceUrl = "Files/\(fileName)"
         showStepMenu()
-        print(recorder.url.path)
+        print(fileName)
     }
 }

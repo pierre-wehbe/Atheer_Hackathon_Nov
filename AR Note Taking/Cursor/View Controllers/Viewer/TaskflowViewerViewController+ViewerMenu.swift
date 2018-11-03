@@ -32,9 +32,18 @@ extension TaskflowViewerViewController: AVAudioPlayerDelegate {
             return
         case .PHOTO_NOTE:
             print("This is a photonote")
+            if steps[currentStep].hasPhoto() {
+                let imageurl = FilesManager.localFileURL.appendingPathComponent(steps[currentStep].photoUrl)
+                let image = UIImage(contentsOfFile: imageurl.path )
+                mediaViewerButtonNodes = generateMediaPlane(withImage: image!)
+                imageViewerOn()
+            }
             return
         case .VIDEO_NOTE:
             print("This is a videonote")
+            if steps[currentStep].hasVideo() {
+                videoViewerOn()
+            }
             return
         case .VOICE_NOTE:
             print("This is a voicenote")
@@ -54,6 +63,18 @@ extension TaskflowViewerViewController: AVAudioPlayerDelegate {
         default:
             return
         }
+    }
+
+    func imageViewerOn() {
+        menuButton.setTitle("Drop", for: .normal)
+        menuButton.isHidden = false
+        stepMenuNode.isHidden = true
+    }
+    
+    func videoViewerOn() {
+        menuButton.setTitle("Pin", for: .normal)
+        menuButton.isHidden = false
+        stepMenuNode.isHidden = true
     }
 
     func showAnnotation() {
@@ -97,7 +118,9 @@ extension TaskflowViewerViewController: AVAudioPlayerDelegate {
 
     func playAudio() {
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: steps[currentStep].voiceUrl))
+            let voiceUrl = FilesManager.localFileURL.appendingPathComponent(steps[currentStep].voiceUrl)
+
+            audioPlayer = try AVAudioPlayer(contentsOf: voiceUrl)
             audioPlayer?.delegate = self
             audioPlayer?.play()
             isAudioPlaying = true

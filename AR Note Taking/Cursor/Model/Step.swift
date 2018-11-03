@@ -158,6 +158,7 @@ class Step: NSObject, NSCoding {
     }
 
     func hasPhoto() -> Bool {
+        print(_photoUrl)
         return !_photoUrl.isEmpty
     }
 

@@ -49,10 +49,11 @@ class FilesManager {
     }
     
     func saveImage(image: UIImage) -> String {
-        let url = FilesManager.localFileURL.appendingPathComponent("Files/\(NSUUID().uuidString).png")
+        let localPath = "Files/\(NSUUID().uuidString).png"
+        let url = FilesManager.localFileURL.appendingPathComponent(localPath)
         do {
             try image.pngData()?.write(to: url, options: Data.WritingOptions.atomic)
-            return url.path
+            return localPath
         } catch {
             print("Error")
         }

@@ -20,6 +20,7 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
     
     var menuButtonNodes: [SCNNode] = []
     var stepMenuButtons: [SCNNode] = []
+    var mediaViewerButtonNodes: [SCNNode] = []
     
     //Cursor
     var isOnTarget = false
@@ -33,6 +34,9 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
     //Step Viewer
     var isAudioPlaying = false
     var audioPlayer: AVAudioPlayer?
+    
+    var tvPlaneNode = SCNNode()
+    var photoNode = SCNNode()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +65,6 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
         
         // Generate Buttons
         menuButtonNodes = generateMenu(withButtons: getMainMenuButtons())
-        
         configureLighting()
     }
 
@@ -123,6 +126,26 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
         }
     }
     
+    func showMediaPlane() {
+        let frame = sceneView.session.currentFrame!
+        var toModify = SCNMatrix4(frame.camera.transform)
+        let distance: Float = 1
+        toModify.m41 -= toModify.m31*distance
+        toModify.m42 -= toModify.m32*distance
+        toModify.m43 -= toModify.m33*distance
+
+        let mediaViewerNode = SCNNode()
+        mediaViewerNode.setWorldTransform(toModify)
+        mediaViewerNode.constraints = [SCNBillboardConstraint()]
+        
+        DispatchQueue.main.async {
+            for buttonNode in self.mediaViewerButtonNodes {
+                mediaViewerNode.addChildNode(buttonNode)
+            }
+            self.sceneView.scene.rootNode.addChildNode(mediaViewerNode)
+        }
+    }
+    
     func toggleMenuHelper() {
         if isMenuVisible {
             cursorView = cursorViewManager.offTarget
@@ -143,7 +166,7 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
         
         menuNode = SCNNode()
         menuNode.setWorldTransform(toModify)
-        
+
         DispatchQueue.main.async {
             for buttonNode in self.menuButtonNodes {
                 self.menuNode.addChildNode(buttonNode)
@@ -155,6 +178,28 @@ class TaskflowViewerViewController: UIViewController, ARSessionDelegate {
     @IBAction func toggleMenu(_ sender: Any) {
         if menuButton.titleLabel?.text == "Done" {
             hideAnnotation()
+            return
+        } else if menuButton.titleLabel?.text == "Drop" {
+            showMediaPlane()
+            DispatchQueue.main.async {
+                self.menuButton.setTitle("X", for: .normal)
+            }
+            return
+        } else if menuButton.titleLabel?.text == "Pin" {
+            let url = FilesManager.localFileURL.appendingPathComponent(steps[currentStep].videoUrl)
+            generateMediaPlane(withVideoUrl: url.path)
+            DispatchQueue.main.async {
+                self.menuButton.setTitle("X", for: .normal)
+            }
+            return
+        } else if menuButton.titleLabel?.text == "X" {
+            tvPlaneNode.removeFromParentNode()
+            photoNode.removeFromParentNode()
+            DispatchQueue.main.async {
+                self.menuButton.setTitle("Menu", for: .normal)
+            }
+            menuButton.isHidden = true
+            showStepMenu()
             return
         }
         toggleMenuHelper()
@@ -240,7 +285,7 @@ extension TaskflowViewerViewController: ARSCNViewDelegate {
                 setupVideoOnNode(videoHolder, fromURL: videoUrl)
                 node.addChildNode(videoHolder)
             } else if steps[currentStep].hasPhoto() {
-                let photoUrl = URL(fileURLWithPath: steps[currentStep].photoUrl)
+                let photoUrl = FilesManager.localFileURL.appendingPathComponent(steps[currentStep].photoUrl)
                 setUpImageOnNode(videoHolder, fromURL: photoUrl)
                 node.addChildNode(videoHolder)
             }

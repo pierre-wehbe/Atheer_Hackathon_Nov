@@ -96,9 +96,11 @@ extension TaskflowCreatorViewController: RenderARDelegate, RecordARDelegate {
     func recorder(didEndRecording path: URL, with noError: Bool) {
         if noError {
             // Do something with the video path.
-            steps[currentStep].videoUrl = path.path
+            let path = path.path
+            let fileName = path.split(separator: "/").last!
+            steps[currentStep].videoUrl = "Files/\(fileName)"
             showStepMenu()
-            print(path.path)
+            print(fileName)
         } else {
             print("Error Recording")
         }
