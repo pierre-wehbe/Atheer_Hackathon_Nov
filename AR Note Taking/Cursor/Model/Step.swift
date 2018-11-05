@@ -26,6 +26,7 @@ class Step: NSObject, NSCoding {
     private var _photoUrl: String = ""
     private var _voiceUrl: String = ""
     private var _annotationPoints: [AnnotationPoint] = []
+    public var annotationPointViewer: [AnnotationPoint] = []
     
     private var _annotationNodes: [SCNNode] = []
 

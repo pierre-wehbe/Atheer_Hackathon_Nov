@@ -281,7 +281,7 @@ extension TaskflowViewerViewController: ARSCNViewDelegate {
             videoHolder.geometry = videoHolderGeometry
             
             if steps[currentStep].hasVideo() {
-                let videoUrl = URL(fileURLWithPath: steps[currentStep].videoUrl)
+                let videoUrl = FilesManager.localFileURL.appendingPathComponent(steps[currentStep].videoUrl)
                 setupVideoOnNode(videoHolder, fromURL: videoUrl)
                 node.addChildNode(videoHolder)
             } else if steps[currentStep].hasPhoto() {
@@ -291,13 +291,24 @@ extension TaskflowViewerViewController: ARSCNViewDelegate {
             }
             return
         }
-        
+        let anchorPosition = anchor.transform.columns.3
+        let currentPoint = SCNVector3(anchorPosition.x, anchorPosition.y, anchorPosition.z)
+
         guard !(anchor is ARPlaneAnchor) else { return }
         for step in steps { // Does nothing...
             for pointID in step.annotationPoints {
                 if pointID.uuid == anchor.identifier.uuidString {
                     print("This is an annotation, should hide it")
-                    //TODO: need to add it to steps nodes list
+                    step.annotationPointViewer.append(AnnotationPoint(uuid: anchor.identifier.uuidString, position: currentPoint))
+//                    //TODO: need to add it to steps nodes list
+//                    let sphere = SCNSphere(radius: 0.005)
+//                    sphere.firstMaterial?.diffuse.contents = UIColor.red
+//                    let annotationNode = SCNNode(geometry: sphere)
+//                    annotationNode.name = CursorTarget.ANNOTATION_NODE.rawValue
+//                    convertNodesToTarget(nodes: [annotationNode])
+//                    DispatchQueue.main.async {
+//                        node.addChildNode(annotationNode)
+//                    }
                     return // do not add it for now
                 }
             }

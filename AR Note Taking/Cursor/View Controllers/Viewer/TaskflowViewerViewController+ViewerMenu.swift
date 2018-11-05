@@ -86,13 +86,24 @@ extension TaskflowViewerViewController: AVAudioPlayerDelegate {
             let points = steps[currentStep].annotationPoints
             
             for i in 0...(points.count-2) {
-                let from = points[i].position
-                let to = points[i+1].position
+                let fromUID = points[i].uuid
+                let toUID = points[i+1].uuid
+                var from: SCNVector3!
+                var to: SCNVector3!
+                for p in steps[currentStep].annotationPointViewer {
+                    if p.uuid == fromUID {
+                        from = p.position
+                    }
+                    if p.uuid == toUID {
+                        to = p.position
+                    }
+                }
+
                 let twoPointsNode = SCNNode()
                 _ = twoPointsNode.buildLineInTwoPointsWithRotation(
                     from: from,
                     to: to,
-                    radius: 0.002,
+                    radius: 0.005,
                     color: getMainColor())
                 steps[currentStep].annotationNodes.append(twoPointsNode)
                 DispatchQueue.main.async {
